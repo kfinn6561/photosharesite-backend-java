@@ -1,5 +1,7 @@
 package com.photosharesite.backend;
 
+import com.photosharesite.backend.resources.HelloWorldResource;
+
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -23,7 +25,11 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
     @Override
     public void run(final PhotoShareSiteConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        final HelloWorldResource resource = new HelloWorldResource(
+                "Hello %s!",
+                "Stranger"
+        );
+        environment.jersey().register(resource);
     }
 
 }
