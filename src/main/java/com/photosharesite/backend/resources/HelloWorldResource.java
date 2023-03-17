@@ -2,6 +2,7 @@ package com.photosharesite.backend.resources;
 
 import com.photosharesite.backend.api.Greeting;
 import com.codahale.metrics.annotation.Timed;
+import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,8 +18,10 @@ public class HelloWorldResource {
     private final String template;
     private final String defaultName;
     private final AtomicLong counter;
+    private Jdbi jdbi;
 
-    public HelloWorldResource(String template, String defaultName) {
+    public HelloWorldResource(Jdbi jdbi, String template, String defaultName) {
+        this.jdbi=jdbi;
         this.template = template;
         this.defaultName = defaultName;
         this.counter = new AtomicLong();
