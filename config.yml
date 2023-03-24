@@ -5,16 +5,16 @@ logging:
 
 database:
   # the name of your JDBC driver
-  driverClass: org.postgresql.Driver
+  driverClass: com.mysql.cj.jdbc.Driver
 
   # the username
-  user: pg-user
+  user: root
 
   # the password
-  password: iAMs00perSecrEET
+  password: ACHXJkiPBpjpI9tx
 
   # the JDBC URL
-  url: jdbc:postgresql://db.example.com/db-prod
+  url: jdbc:mysql://34.245.96.130:3306/photo-share-site
 
   # any properties specific to your JDBC driver:
   properties:
