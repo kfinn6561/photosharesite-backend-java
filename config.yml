@@ -8,13 +8,13 @@ database:
   driverClass: com.mysql.cj.jdbc.Driver
 
   # the username
-  user: root
+  user: testuser
 
   # the password
   password: ACHXJkiPBpjpI9tx
 
   # the JDBC URL
-  url: jdbc:mysql://34.245.96.130:3306/photo-share-site
+  url: jdbc:mysql://34.245.96.130:3306/photosharesite
 
   # any properties specific to your JDBC driver:
   properties:
