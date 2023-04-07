@@ -31,6 +31,9 @@ public class HelloWorldResource {
     @Timed
     public Greeting sayHello(@QueryParam("name") Optional<String> name) {
         final String value = String.format(template, name.orElse(defaultName));
+        jdbi.useHandle(handle -> {
+            handle.execute("insert into Users (IPAddress) values ('54321');");
+        });
         return new Greeting(counter.incrementAndGet(), value);
     }
 }
