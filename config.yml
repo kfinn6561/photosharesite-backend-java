@@ -3,6 +3,8 @@ logging:
   loggers:
     com.photosharesite: DEBUG
 
+swaggerBasePath: http://localhost:9080
+
 database:
   # the name of your JDBC driver
   driverClass: com.mysql.cj.jdbc.Driver

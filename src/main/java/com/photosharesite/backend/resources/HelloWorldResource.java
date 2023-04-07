@@ -2,6 +2,7 @@ package com.photosharesite.backend.resources;
 
 import com.photosharesite.backend.api.Greeting;
 import com.codahale.metrics.annotation.Timed;
+import com.wordnik.swagger.annotations.Api;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.Optional;
 
 @Path("/hello-world")
+@Api(value="/hello-world", description="says hello to the user and inserts test user into the db")
 @Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
     private final String template;

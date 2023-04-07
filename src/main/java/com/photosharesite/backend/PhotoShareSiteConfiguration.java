@@ -21,4 +21,10 @@ public class PhotoShareSiteConfiguration extends Configuration {
     public DataSourceFactory getDataSourceFactory() {
         return database;
     }
+
+    @Valid
+    @NotNull
+    @JsonProperty
+    private String swaggerBasePath;
+    public String getSwaggerBasePath(){ return swaggerBasePath; }
 }
