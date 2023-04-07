@@ -8,13 +8,13 @@ database:
   driverClass: com.mysql.cj.jdbc.Driver
 
   # the username
-  user: testuser
+  user: photosharesite-user
 
   # the password
-  password: ACHXJkiPBpjpI9tx
+  password: jopHFGh4TARegnoX #todo: pass this in through terraform
 
   # the JDBC URL
-  url: jdbc:mysql://34.245.96.130:3306/photosharesite
+  url: jdbc:mysql://34.245.87.151:3306/photosharesite #todo: pass this in through terraform
 
   # any properties specific to your JDBC driver:
   properties:
