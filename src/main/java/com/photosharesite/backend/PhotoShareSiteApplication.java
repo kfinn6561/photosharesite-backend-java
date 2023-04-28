@@ -1,25 +1,17 @@
 package com.photosharesite.backend;
 
 import com.photosharesite.backend.resources.HelloWorldResource;
-import com.wordnik.swagger.config.ConfigFactory;
-import com.wordnik.swagger.config.ScannerFactory;
-import com.wordnik.swagger.config.SwaggerConfig;
-import com.wordnik.swagger.jaxrs.config.DefaultJaxrsScanner;
-import com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider;
-import com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON;
-import com.wordnik.swagger.jaxrs.listing.ResourceListingProvider;
-import com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader;
-import com.wordnik.swagger.reader.ClassReaders;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
+import io.swagger.config.ScannerFactory;
+import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.jaxrs.config.DefaultJaxrsScanner;
+import io.swagger.jaxrs.listing.ApiListingResource;
+import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.jdbi.v3.core.Jdbi;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
-import java.util.EnumSet;
 
 public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfiguration> {
 
@@ -34,7 +26,9 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
     @Override
     public void initialize(final Bootstrap<PhotoShareSiteConfiguration> bootstrap) {
-        // TODO: application initialization
+        // This allows you to host swagger ui on this dropwizard app's host
+        final AssetsBundle assetsBundle = new AssetsBundle("/swagger-ui", "/swagger-ui", "index.html");
+        bootstrap.addBundle(assetsBundle);
     }
 
     @Override
@@ -52,35 +46,27 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         );
         environment.jersey().register(resource);
     }
-
-
     private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
         // Swagger Resource
-        environment.jersey().register(new ApiListingResourceJSON());
+        // The ApiListingResource creates the swagger.json file at localhost:8080/swagger.json
+        environment.jersey().register(new ApiListingResource());
+        environment.jersey().register(SwaggerSerializers.class);
 
-        // Swagger providers
-        environment.jersey().register(new ApiDeclarationProvider());
-        environment.jersey().register(new ResourceListingProvider());
+        Package objPackage = this.getClass().getPackage();
+        String version = objPackage.getImplementationVersion();
 
         // Swagger Scanner, which finds all the resources for @Api Annotations
         ScannerFactory.setScanner(new DefaultJaxrsScanner());
 
-        // Add the reader, which scans the resources and extracts the resource information
-        ClassReaders.setReader(new DefaultJaxrsApiReader());
-
-        // required CORS support
-        FilterRegistration.Dynamic filter = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
-        filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-        filter.setInitParameter("allowedOrigins", "*"); // allowed origins comma separated
-        filter.setInitParameter("allowedHeaders", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
-        filter.setInitParameter("allowedMethods", "GET,PUT,POST,DELETE,OPTIONS,HEAD");
-        filter.setInitParameter("preflightMaxAge", "5184000"); // 2 months
-        filter.setInitParameter("allowCredentials", "true");
-
-        // Set the swagger config options
-        SwaggerConfig config = ConfigFactory.config();
-        config.setApiVersion("1.0.1");
-        config.setBasePath(configuration.getSwaggerBasePath());
+        //This is what is shown when you do "http://localhost:8080/swagger-ui/"
+        BeanConfig beanConfig = new BeanConfig();
+        beanConfig.setVersion(version);
+        beanConfig.setSchemes(new String[] { "http" });
+        beanConfig.setHost("localhost:8080");
+        beanConfig.setPrettyPrint(true);
+        beanConfig.setDescription("Photo Share Site");
+        beanConfig.setResourcePackage("com.photosharesite.backend.resources");
+        beanConfig.setScan(true);
     }
 
 }

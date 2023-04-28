@@ -3,7 +3,7 @@ logging:
   loggers:
     com.photosharesite: DEBUG
 
-swaggerBasePath: http://localhost:9080
+swaggerBasePath: http://localhost:8080
 
 database:
   # the name of your JDBC driver
@@ -13,10 +13,10 @@ database:
   user: photosharesite-user
 
   # the password
-  password: jopHFGh4TARegnoX #todo: pass this in through terraform
+  password: ixziE13ZwsCsFI4j #todo: pass this in through terraform
 
   # the JDBC URL
-  url: jdbc:mysql://34.245.87.151:3306/photosharesite #todo: pass this in through terraform
+  url: jdbc:mysql://34.244.100.136:3306/photosharesite #todo: pass this in through terraform
 
   # any properties specific to your JDBC driver:
   properties:
