@@ -128,18 +128,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${basedir}/src/main/resources/swagger-ui</directory>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
             </plugin>
@@ -166,59 +154,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>1.4.0</version>
-                <executions>
-                    <execution>
-                        <id>swagger-ui</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <url>
-                                https://github.com/swagger-api/swagger-ui/archive/master.tar.gz
-                            </url>
-                            <unpack>true</unpack>
-                            <outputDirectory>
-                                ${project.build.directory}
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>replacer</artifactId>
-                <version>1.5.3</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includes>
-                        <include>${project.build.directory}/swagger-ui-master/dist/index.html</include>
-                        <include>${project.build.directory}/swagger-ui-master/dist/swagger-ui-bundle.js</include>
-                        <include>${project.build.directory}/swagger-ui-master/dist/swagger-ui-bundle.js.map</include>
-                        <include>${project.build.directory}/swagger-ui-master/dist/swagger-ui-standalone-preset.js</include>
-                        <include>${project.build.directory}/swagger-ui-master/dist/swagger-ui-standalone-preset.js.map</include>
-                        <include>${project.build.directory}/swagger-ui-master/dist/swagger-ui.js</include>
-                        <include>${project.build.directory}/swagger-ui-master/dist/swagger-ui.js.map</include>
-                    </includes>
-                    <replacements>
-                        <replacement>
-                            <token>http://petstore.swagger.io/v2/swagger.json</token>
-                            <value>/swagger.json</value>
-                        </replacement>
-                    </replacements>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
