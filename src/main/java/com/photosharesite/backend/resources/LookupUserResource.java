@@ -4,8 +4,11 @@ import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.api.LookupUserRequest;
 import com.photosharesite.backend.api.LookupUserResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.jdbi.v3.core.Jdbi;
 
+import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,8 +26,10 @@ public class LookupUserResource {
     }
 
     @POST
+    @ApiOperation(value = "Lookup User", response = LookupUserResponse.class)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Timed
-    public LookupUserResponse lookupUser(LookupUserRequest request) {
+    public LookupUserResponse lookupUser(@Valid LookupUserRequest request) {
         return jdbi.withHandle(handle ->
             handle.createQuery("CALL "+lookupUserProcName+"(:IPAddress)")
                     .bind("IPAddress",request.getIPAddress())
