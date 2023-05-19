@@ -6,7 +6,6 @@ import com.photosharesite.backend.api.LookupUserResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -31,13 +30,10 @@ public class LookupUserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public LookupUserResponse lookupUser(@Valid LookupUserRequest request) {
-        return jdbi.withHandle(handle -> {
-            handle.registerRowMapper(ConstructorMapper.factory(LookupUserRequest.class));
-                    return handle.createQuery("CALL " + lookupUserProcName + "(:IPAddress)")
-                            .bind("IPAddress", request.getIPAddress())
-                            .mapToBean(LookupUserResponse.class)
-                            .one();
-                }
+        return jdbi.withHandle(handle -> handle.createQuery("CALL " + lookupUserProcName + "(:IPAddress)")
+                    .bind("IPAddress", request.getIPAddress())
+                    .mapToBean(LookupUserResponse.class)
+                    .one()
         );
     }
 }
