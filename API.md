@@ -17,7 +17,7 @@ POST
 ### Response
 | Parameter | Type | Notes | Example |
 |-----------|------|-------|---------|
-| UserId    | int  |       | 1234    |
+| userID    | int  |       | 1234    |
 
 
 ## Delete File
