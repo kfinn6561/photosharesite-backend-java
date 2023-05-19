@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
+import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 
 public class LookupUserResponse {
     @Getter
@@ -16,7 +18,8 @@ public class LookupUserResponse {
     }
 
     @JsonCreator
-    public LookupUserResponse(int UserID) {
+    @JdbiConstructor
+    public LookupUserResponse(@ColumnName("UserID") int UserID) {
         this.UserID = UserID;
     }
 }
