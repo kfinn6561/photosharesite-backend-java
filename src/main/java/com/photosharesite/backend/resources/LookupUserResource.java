@@ -33,10 +33,9 @@ public class LookupUserResource {
     public LookupUserResponse lookupUser(@Valid LookupUserRequest request) {
         return jdbi.withHandle(handle -> {
             handle.registerRowMapper(ConstructorMapper.factory(LookupUserRequest.class));
-            handle.registerRowMapper(ConstructorMapper.factory(LookupUserResponse.class));
                     return handle.createQuery("CALL " + lookupUserProcName + "(:IPAddress)")
                             .bind("IPAddress", request.getIPAddress())
-                            .mapTo(LookupUserResponse.class)
+                            .mapToBean(LookupUserResponse.class)
                             .one();
                 }
         );
