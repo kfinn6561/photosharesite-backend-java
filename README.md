@@ -11,3 +11,5 @@ Then run the jar
 ```
 java -jar target/backend-1.0.jar server config.yml
 ```
+
+Then go to http://localhost:8080/swagger-ui to test the endpoints

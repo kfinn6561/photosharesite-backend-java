@@ -1,6 +1,7 @@
 package com.photosharesite.backend;
 
 import com.photosharesite.backend.resources.HelloWorldResource;
+import com.photosharesite.backend.resources.LookupUserResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.jdbi3.JdbiFactory;
@@ -39,12 +40,17 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         // init Swagger resources
         initSwagger(configuration, environment);
 
-        final HelloWorldResource resource = new HelloWorldResource(
+        // create and register hello world resource
+        final HelloWorldResource helloWorldResource = new HelloWorldResource(
                 jdbi,
                 "Hello %s!",
                 "Stranger"
         );
-        environment.jersey().register(resource);
+        environment.jersey().register(helloWorldResource);
+
+        // create and register lookupUser resource
+        final LookupUserResource lookupUserResource = new LookupUserResource(jdbi);
+        environment.jersey().register(lookupUserResource);
     }
     private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
         // Swagger Resource
