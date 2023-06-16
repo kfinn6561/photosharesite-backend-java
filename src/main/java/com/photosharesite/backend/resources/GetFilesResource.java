@@ -32,7 +32,7 @@ public class GetFilesResource {
     @ApiOperation(value = "Get All Files", response = GetFilesResponse.class)
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
-    public List<GetFilesResponse> lookupUser(@Valid GetFilesRequest request) {
+    public List<GetFilesResponse> getAllFiles(@Valid GetFilesRequest request) {
         return  jdbi.withHandle(handle -> handle.createQuery("CALL " + selectFilesProcName + "()")
                 .mapToBean(SelectFilesResponse.class)
                 .stream()
