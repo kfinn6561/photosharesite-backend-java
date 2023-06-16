@@ -33,8 +33,7 @@ public class GetFilesResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public List<GetFilesResponse> lookupUser(@Valid GetFilesRequest request) {
-        return  jdbi.withHandle(handle -> handle.createQuery("CALL " + selectFilesProcName + "(:IPAddress)")
-                .bind("IPAddress", request.getIPAddress())
+        return  jdbi.withHandle(handle -> handle.createQuery("CALL " + selectFilesProcName + "()")
                 .mapToBean(SelectFilesResponse.class)
                 .stream()
                 .map(r->convertDBResponseToAPIResponse(r,request.getIPAddress()))
