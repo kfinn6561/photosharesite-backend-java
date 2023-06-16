@@ -46,7 +46,7 @@ public class GetFilesResource {
                 dbResponse.getFileID(),
                 dbResponse.getURL(),
                 dbResponse.getFileName(),
-                dbResponse.getIPAddress() == ipAddress
+                dbResponse.getIPAddress().equals(ipAddress)
         );
     }
 }
