@@ -4,16 +4,22 @@ import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.api.GetFilesRequest;
 import com.photosharesite.backend.api.GetFilesResponse;
 import com.photosharesite.backend.db.SelectFilesResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Path("/files/all")
+@Api(value = "Get All Files")
+@Produces(MediaType.APPLICATION_JSON)
 public class GetFilesResource {
     public static final String selectFilesProcName = "SelectFiles";
     private final Jdbi jdbi;
@@ -23,7 +29,7 @@ public class GetFilesResource {
     }
 
     @GET
-    @ApiOperation(value = "Get Files", response = GetFilesResponse.class)
+    @ApiOperation(value = "Get All Files", response = GetFilesResponse.class)
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public List<GetFilesResponse> lookupUser(@Valid GetFilesRequest request) {
