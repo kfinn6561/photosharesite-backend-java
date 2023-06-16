@@ -18,7 +18,7 @@ public class SelectFilesResponse {
 
     @Getter
     @Setter
-    private int OwnerID;
+    private String IPAddress;
 
     public SelectFilesResponse(){
         // Jackson deserialisation

@@ -7,9 +7,9 @@ import lombok.Setter;
 public class GetFilesRequest {
     @Getter
     @Setter
-    private Integer UserID;
+    private String IPAddress;
 
-    public GetFilesRequest(@JsonProperty("UserID") Integer UserID) {
-        this.UserID = UserID;
+    public GetFilesRequest(@JsonProperty("IPAddress") String IPAddress) {
+        this.IPAddress = IPAddress;
     }
 }
