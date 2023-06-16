@@ -14,7 +14,7 @@ database:
   password: H2UTs8IoWVxQ73OU #todo: pass this in through terraform
 
   # the JDBC URL
-  url: jdbc:mysql://34.241.123.148:3306/photosharesite #todo: pass this in through terraform
+  url: jdbc:mysql://3.250.34.184":3306/photosharesite #todo: pass this in through terraform
 
   # any properties specific to your JDBC driver:
   properties:
