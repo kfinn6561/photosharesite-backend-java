@@ -14,4 +14,11 @@ public class SelectFilesResponse {
     public SelectFilesResponse(){
         // Jackson deserialisation
     }
+
+    public SelectFilesResponse(int fileID, String fileName, String URL, String IPAddress) {
+        FileID = fileID;
+        this.URL = URL;
+        FileName = fileName;
+        this.IPAddress = IPAddress;
+    }
 }
