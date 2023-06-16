@@ -1,5 +1,6 @@
 package com.photosharesite.backend;
 
+import com.photosharesite.backend.resources.GetFilesResource;
 import com.photosharesite.backend.resources.HelloWorldResource;
 import com.photosharesite.backend.resources.LookupUserResource;
 import io.dropwizard.Application;
@@ -51,6 +52,10 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         // create and register lookupUser resource
         final LookupUserResource lookupUserResource = new LookupUserResource(jdbi);
         environment.jersey().register(lookupUserResource);
+
+        // create and register GetFilesResource
+        final GetFilesResource getFilesResource = new GetFilesResource(jdbi);
+        environment.jersey().register(getFilesResource);
     }
     private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
         // Swagger Resource
