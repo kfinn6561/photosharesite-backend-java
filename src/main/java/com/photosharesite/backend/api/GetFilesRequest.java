@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LookupUserRequest {
+public class GetFilesRequest {
     private String IPAddress;
 
-    public LookupUserRequest(@JsonProperty("IPAddress") String IPAddress) {
+    public GetFilesRequest(@JsonProperty("IPAddress") String IPAddress) {
         this.IPAddress = IPAddress;
     }
 }

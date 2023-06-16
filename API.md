@@ -19,6 +19,29 @@ POST
 |-----------|------|-------|---------|
 | userID    | int  |       | 1234    |
 
+## Get All Files
+Returns details of all files on the server, determines which files are modifyable based on the supplied IP address.
+
+### Endpoint
+<photosharesite-backend>/files/all
+
+### HTTP method
+POST
+
+### Request
+| Parameter | Type   | Notes | Example     |
+|-----------|--------|-------|-------------|
+| IPAddress | string |       | "127.1.1.0" |
+
+### Response
+List of
+
+| Parameter    | Type   | Notes                                                             | Example                    |
+|--------------|--------|-------------------------------------------------------------------|----------------------------|
+| fileID       | int    |                                                                   | 1234                       |
+| fileName     | string |                                                                   | "me at the beach"          |
+| downloadURL  | string | url to set as src on the frontend                                 | "s3://photosharesite/1234" |
+| isModifyable | bool   | determined by whether the supplied IP Address is was the uploader | true                       |
 
 ## Delete File
 Removes a file from the database and also deletes it from AWS.
