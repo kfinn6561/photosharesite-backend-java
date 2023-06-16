@@ -14,4 +14,11 @@ public class GetFilesResponse {
     public GetFilesResponse(){
         //Jackson Deserialisation
     }
+
+    public GetFilesResponse(int fileID, String downloadURL, String fileName, boolean isModifyable) {
+        FileID = fileID;
+        DownloadURL = downloadURL;
+        FileName = fileName;
+        IsModifyable = isModifyable;
+    }
 }
