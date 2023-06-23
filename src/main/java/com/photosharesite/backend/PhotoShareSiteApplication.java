@@ -3,7 +3,6 @@ package com.photosharesite.backend;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
-import com.photosharesite.backend.resources.HelloWorldResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -42,14 +41,6 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
         // init Swagger resources
         initSwagger(configuration, environment);
-
-        // create and register hello world resource
-        final HelloWorldResource helloWorldResource = new HelloWorldResource(
-                jdbi,
-                "Hello %s!",
-                "Stranger"
-        );
-        environment.jersey().register(helloWorldResource);
 
         // create and register lookupUser resource
         final LookupUserResource lookupUserResource = new LookupUserResource(
