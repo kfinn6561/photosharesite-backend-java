@@ -1,4 +1,4 @@
-package com.photosharesite.backend.endpoints.getFiles;
+package com.photosharesite.backend.endpoints.getfiles;
 
 import lombok.Getter;
 import lombok.Setter;

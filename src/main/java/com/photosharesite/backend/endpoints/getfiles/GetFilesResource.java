@@ -1,4 +1,4 @@
-package com.photosharesite.backend.endpoints.getFiles;
+package com.photosharesite.backend.endpoints.getfiles;
 
 import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.db.SelectFilesResponse;
