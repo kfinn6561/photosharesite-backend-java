@@ -15,6 +15,8 @@ import io.swagger.jaxrs.config.DefaultJaxrsScanner;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.jdbi.v3.core.Jdbi;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
 
 public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfiguration> {
 
@@ -41,6 +43,14 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
         // init Swagger resources
         initSwagger(configuration, environment);
+
+        AwsCredentials credentials = AwsBasicCredentials.create(
+                "<AWS accesskey>",
+                "<AWS secretkey>"
+        );
+        //credentials = InstanceProfileCredentialsProvider.builder().build();
+
+
 
         // create and register lookupUser resource
         final LookupUserResource lookupUserResource = new LookupUserResource(

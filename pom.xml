@@ -70,9 +70,9 @@
             <version>8.0.32</version>
         </dependency>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-s3</artifactId>
-            <version>1.12.493</version>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.20.90</version>
         </dependency>
         <!-- Swagger UI -->
         <dependency>
