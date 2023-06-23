@@ -1,8 +1,6 @@
-package com.photosharesite.backend.resources;
+package com.photosharesite.backend.endpoints.lookupuser;
 
 import com.codahale.metrics.annotation.Timed;
-import com.photosharesite.backend.api.LookupUserRequest;
-import com.photosharesite.backend.api.LookupUserResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.jdbi.v3.core.Jdbi;

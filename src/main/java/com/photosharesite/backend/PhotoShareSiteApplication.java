@@ -2,7 +2,7 @@ package com.photosharesite.backend;
 
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.resources.HelloWorldResource;
-import com.photosharesite.backend.resources.LookupUserResource;
+import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.jdbi3.JdbiFactory;
