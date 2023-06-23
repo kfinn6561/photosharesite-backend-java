@@ -2,18 +2,14 @@ package com.photosharesite.backend.endpoints.getfiles;
 
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
-import org.jdbi.v3.core.Handle;
-import org.jdbi.v3.core.HandleCallback;
-import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.result.ResultIterable;
-import org.jdbi.v3.core.statement.Query;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GetFilesResourceTest {
 
@@ -21,8 +17,8 @@ public class GetFilesResourceTest {
     public void testGetAllFiles() {
         String testIPAddress = "127.0.0.1";
 
-        // Create a mock Jdbi instance
-        Jdbi mockJdbi = mock(Jdbi.class);
+        // Create a mock DAO instance
+        SelectFilesAccess mockDAO = mock(SelectFilesAccess.class);
 
         // Create a mock SelectFilesResponse
         SelectFilesResponse modifyableResponse = new SelectFilesResponse(1,"test1","http://example.com",testIPAddress);
@@ -33,27 +29,11 @@ public class GetFilesResourceTest {
                 nonModifyableResponse
         );
 
-        // Create a mock Handle and configure it to return the mock responses
-        Handle mockHandle = mock(Handle.class);
-        Query mockQuery = mock(Query.class);
-        ResultIterable<SelectFilesResponse> mockResultIterable = mock(ResultIterable.class);
-        when(mockHandle.createQuery(anyString())).thenReturn(mockQuery);
-        when(mockQuery.mapToBean(eq(SelectFilesResponse.class))).thenReturn(mockResultIterable);
-        when(mockResultIterable.stream()).thenReturn(mockResponses.stream());
+        // Configure mock DAO to return the mock responses
+        when(mockDAO.SelectFiles()).thenReturn(mockResponses);
 
-        // Configure the mock Jdbi to return the mock Handle
-        when(mockJdbi.withHandle(any()))
-                .thenAnswer(invocation -> {
-                    // Get the callback from the invocation
-                    HandleCallback callback = invocation.getArgument(0);
-                    // Invoke the callback with the mock Handle object
-                    return callback.withHandle(mockHandle);
-                });
-
-        // Create an instance of GetFilesResource with the mock Jdbi
-        GetFilesResource resource = new GetFilesResource(
-                new SelectFilesAccess(mockJdbi)
-        );
+        // Create an instance of GetFilesResource with the mock DAO
+        GetFilesResource resource = new GetFilesResource(mockDAO);
 
         // Create a test GetFilesRequest
         GetFilesRequest testRequest = new GetFilesRequest(testIPAddress);
