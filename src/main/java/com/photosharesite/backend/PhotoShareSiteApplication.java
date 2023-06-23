@@ -76,7 +76,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         beanConfig.setHost("localhost:8080");
         beanConfig.setPrettyPrint(true);
         beanConfig.setDescription("Photo Share Site");
-        beanConfig.setResourcePackage("com.photosharesite.backend.resources");
+        beanConfig.setResourcePackage("com.photosharesite.backend.endpoints");
         beanConfig.setScan(true);
     }
 
