@@ -11,4 +11,8 @@ public class LookupUserResponse {
     public LookupUserResponse() {
         // Jackson deserialization
     }
+
+    public LookupUserResponse(int userID) {
+        UserID = userID;
+    }
 }
