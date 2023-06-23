@@ -1,4 +1,4 @@
-package com.photosharesite.backend.resources;
+package com.photosharesite.backend.endpoints.getfiles;
 
 import com.photosharesite.backend.endpoints.getfiles.GetFilesRequest;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResponse;
