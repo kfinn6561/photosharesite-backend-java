@@ -1,4 +1,4 @@
-package com.photosharesite.backend.db;
+package com.photosharesite.backend.db.selectfiles;
 
 import lombok.Getter;
 import lombok.Setter;

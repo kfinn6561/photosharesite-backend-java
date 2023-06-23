@@ -1,4 +1,4 @@
-package com.photosharesite.backend.api;
+package com.photosharesite.backend.endpoints.lookupuser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +10,9 @@ public class LookupUserResponse {
 
     public LookupUserResponse() {
         // Jackson deserialization
+    }
+
+    public LookupUserResponse(int userID) {
+        UserID = userID;
     }
 }

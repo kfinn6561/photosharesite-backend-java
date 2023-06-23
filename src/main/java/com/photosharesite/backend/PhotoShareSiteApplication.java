@@ -1,8 +1,10 @@
 package com.photosharesite.backend;
 
-import com.photosharesite.backend.resources.GetFilesResource;
+import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
+import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
+import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.resources.HelloWorldResource;
-import com.photosharesite.backend.resources.LookupUserResource;
+import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.jdbi3.JdbiFactory;
@@ -50,11 +52,15 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         environment.jersey().register(helloWorldResource);
 
         // create and register lookupUser resource
-        final LookupUserResource lookupUserResource = new LookupUserResource(jdbi);
+        final LookupUserResource lookupUserResource = new LookupUserResource(
+                new InsertOrSelectUserAccess(jdbi)
+        );
         environment.jersey().register(lookupUserResource);
 
         // create and register GetFilesResource
-        final GetFilesResource getFilesResource = new GetFilesResource(jdbi);
+        final GetFilesResource getFilesResource = new GetFilesResource(
+                new SelectFilesAccess(jdbi)
+        );
         environment.jersey().register(getFilesResource);
     }
     private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
@@ -76,7 +82,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         beanConfig.setHost("localhost:8080");
         beanConfig.setPrettyPrint(true);
         beanConfig.setDescription("Photo Share Site");
-        beanConfig.setResourcePackage("com.photosharesite.backend.resources");
+        beanConfig.setResourcePackage("com.photosharesite.backend.endpoints");
         beanConfig.setScan(true);
     }
 
