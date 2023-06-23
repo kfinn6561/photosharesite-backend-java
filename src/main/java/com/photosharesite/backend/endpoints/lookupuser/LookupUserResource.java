@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 @Api(value = "Lookup User")
 @Produces(MediaType.APPLICATION_JSON)
 public class LookupUserResource {
-    public static final String lookupUserProcName = "InsertOrSelectUser";
     private final InsertOrSelectUserAccess dao;
 
     public LookupUserResource(InsertOrSelectUserAccess dao) {
