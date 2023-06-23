@@ -1,9 +1,7 @@
 package com.photosharesite.backend.endpoints.getfiles;
 
-import com.photosharesite.backend.endpoints.getfiles.GetFilesRequest;
-import com.photosharesite.backend.endpoints.getfiles.GetFilesResponse;
-import com.photosharesite.backend.db.SelectFilesResponse;
-import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
+import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
+import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleCallback;
 import org.jdbi.v3.core.Jdbi;
@@ -53,7 +51,9 @@ public class GetFilesResourceTest {
                 });
 
         // Create an instance of GetFilesResource with the mock Jdbi
-        GetFilesResource resource = new GetFilesResource(mockJdbi);
+        GetFilesResource resource = new GetFilesResource(
+                new SelectFilesAccess(mockJdbi)
+        );
 
         // Create a test GetFilesRequest
         GetFilesRequest testRequest = new GetFilesRequest(testIPAddress);

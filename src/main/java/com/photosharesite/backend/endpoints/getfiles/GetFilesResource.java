@@ -1,10 +1,10 @@
 package com.photosharesite.backend.endpoints.getfiles;
 
 import com.codahale.metrics.annotation.Timed;
-import com.photosharesite.backend.db.SelectFilesResponse;
+import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
+import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.jdbi.v3.core.Jdbi;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -19,11 +19,10 @@ import java.util.stream.Collectors;
 @Api(value = "Get All Files")
 @Produces(MediaType.APPLICATION_JSON)
 public class GetFilesResource {
-    public static final String selectFilesProcName = "SelectFiles";
-    private final Jdbi jdbi;
+    private final SelectFilesAccess dao;
 
-    public GetFilesResource(Jdbi jdbi) {
-        this.jdbi=jdbi;
+    public GetFilesResource(SelectFilesAccess dao) {
+        this.dao = dao;
     }
 
     @POST
@@ -31,12 +30,11 @@ public class GetFilesResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public List<GetFilesResponse> getAllFiles(@Valid GetFilesRequest request) {
-        return  jdbi.withHandle(handle -> handle.createQuery("CALL " + selectFilesProcName + "()")
-                .mapToBean(SelectFilesResponse.class)
+        List<SelectFilesResponse> dbResponse = dao.SelectFiles();
+        return dbResponse
                 .stream()
                 .map(r->convertDBResponseToAPIResponse(r,request.getIPAddress()))
-                .collect(Collectors.toList())
-        );
+                .collect(Collectors.toList());
     }
 
     private GetFilesResponse convertDBResponseToAPIResponse(SelectFilesResponse dbResponse, String ipAddress){
