@@ -1,8 +1,9 @@
 package com.photosharesite.backend.resources;
 
-import com.photosharesite.backend.api.GetFilesRequest;
-import com.photosharesite.backend.api.GetFilesResponse;
+import com.photosharesite.backend.endpoints.getFiles.GetFilesRequest;
+import com.photosharesite.backend.endpoints.getFiles.GetFilesResponse;
 import com.photosharesite.backend.db.SelectFilesResponse;
+import com.photosharesite.backend.endpoints.getFiles.GetFilesResource;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleCallback;
 import org.jdbi.v3.core.Jdbi;

@@ -1,8 +1,6 @@
-package com.photosharesite.backend.resources;
+package com.photosharesite.backend.endpoints.getFiles;
 
 import com.codahale.metrics.annotation.Timed;
-import com.photosharesite.backend.api.GetFilesRequest;
-import com.photosharesite.backend.api.GetFilesResponse;
 import com.photosharesite.backend.db.SelectFilesResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

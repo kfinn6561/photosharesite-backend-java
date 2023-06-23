@@ -1,6 +1,6 @@
 package com.photosharesite.backend;
 
-import com.photosharesite.backend.resources.GetFilesResource;
+import com.photosharesite.backend.endpoints.getFiles.GetFilesResource;
 import com.photosharesite.backend.resources.HelloWorldResource;
 import com.photosharesite.backend.resources.LookupUserResource;
 import io.dropwizard.Application;

@@ -1,4 +1,4 @@
-package com.photosharesite.backend.api;
+package com.photosharesite.backend.endpoints.getFiles;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
