@@ -45,8 +45,8 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         initSwagger(configuration, environment);
 
         AwsCredentials credentials = AwsBasicCredentials.create(
-                "<AWS accesskey>",
-                "<AWS secretkey>"
+                configuration.getAWSAccessKey(),
+                configuration.getAWSSecretkey()
         );
         //credentials = InstanceProfileCredentialsProvider.builder().build();
 

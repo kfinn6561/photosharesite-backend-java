@@ -3,6 +3,9 @@ logging:
   loggers:
     com.photosharesite: DEBUG
 
+AWSAccessKey: XXX
+AWSSecretKey: XXX
+
 database:
   # the name of your JDBC driver
   driverClass: com.mysql.cj.jdbc.Driver
