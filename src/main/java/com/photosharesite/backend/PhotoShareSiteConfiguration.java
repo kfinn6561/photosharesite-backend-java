@@ -12,6 +12,9 @@ public class PhotoShareSiteConfiguration extends Configuration {
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
 
+    @NotNull
+    private String mediaFilesBucketName;
+
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
         this.database = factory;
@@ -20,5 +23,15 @@ public class PhotoShareSiteConfiguration extends Configuration {
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
         return database;
+    }
+
+    @JsonProperty("mediaFilesBucketName")
+    public String getMediaFilesBucketName() {
+        return mediaFilesBucketName;
+    }
+
+    @JsonProperty("mediaFilesBucketName")
+    public void setMediaFilesBucketName(String mediaFilesBucketName) {
+        this.mediaFilesBucketName = mediaFilesBucketName;
     }
 }

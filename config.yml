@@ -3,6 +3,8 @@ logging:
   loggers:
     com.photosharesite: DEBUG
 
+mediaFilesBucketName: kieran-finn-pss-media-files-nkiv #todo: pass this in through terraform
+
 database:
   # the name of your JDBC driver
   driverClass: com.mysql.cj.jdbc.Driver
