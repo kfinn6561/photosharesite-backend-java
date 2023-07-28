@@ -3,9 +3,6 @@ logging:
   loggers:
     com.photosharesite: DEBUG
 
-AWSAccessKey: XXX
-AWSSecretKey: XXX
-
 database:
   # the name of your JDBC driver
   driverClass: com.mysql.cj.jdbc.Driver
@@ -14,10 +11,10 @@ database:
   user: photosharesite-user #todo: pass this in through terraform
 
   # the password
-  password: 7JpEnAvROpiFvY6O #todo: pass this in through terraform
+  password: 4GIMvzCohjj7LnQj #todo: pass this in through terraform
 
   # the JDBC URL
-  url: jdbc:mysql://3.249.223.201:3306/photosharesite #todo: pass this in through terraform
+  url: jdbc:mysql://18.202.247.28:3306/photosharesite #todo: pass this in through terraform
 
   # any properties specific to your JDBC driver:
   properties:
