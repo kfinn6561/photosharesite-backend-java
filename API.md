@@ -43,6 +43,22 @@ List of
 | downloadURL  | string | url to set as src on the frontend                                 | "s3://photosharesite/1234" |
 | isModifyable | bool   | determined by whether the supplied IP Address is was the uploader | true                       |
 
+## Upload File
+Uploads a file to S3 and also adds it to the database
+
+### Endpoint
+<photosharesite-backend>/files/upload
+
+### HTTP method
+POST
+
+### Request
+| Parameter   | Type         | Notes | Example           |
+|-------------|--------------|-------|-------------------|
+| UserId      | int          |       | 1234              |
+| fileName    | string       |       | "me at the beach" |
+| fileContent | octet stream |       | <file>            |
+
 ## Delete File
 Removes a file from the database and also deletes it from AWS.
 
