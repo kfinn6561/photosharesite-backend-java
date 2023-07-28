@@ -43,11 +43,15 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
     @Override
     public void run(final PhotoShareSiteConfiguration configuration,
                     final Environment environment) {
+
+        // initialise JDBI database connection
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-        // init Swagger resources
+
+        // initialise Swagger
         initSwagger(configuration, environment);
 
+        // Set up AWS client
         AwsCredentials credentials = AwsBasicCredentials.create(
                 configuration.getAWSAccessKey(),
                 configuration.getAWSSecretkey()
