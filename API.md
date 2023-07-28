@@ -59,6 +59,11 @@ POST
 | fileName    | string       |       | "me at the beach" |
 | fileContent | octet stream |       | <file>            |
 
+### Response
+| Parameter | Type | Notes | Example |
+|-----------|------|-------|---------|
+| success   | bool |       | True    |
+
 ## Delete File
 Removes a file from the database and also deletes it from AWS.
 
