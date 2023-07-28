@@ -15,6 +15,8 @@ import io.swagger.jaxrs.config.DefaultJaxrsScanner;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.jdbi.v3.core.Jdbi;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
 
 public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfiguration> {
 
@@ -37,10 +39,22 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
     @Override
     public void run(final PhotoShareSiteConfiguration configuration,
                     final Environment environment) {
+
+        // initialise JDBI database connection
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-        // init Swagger resources
+
+        // initialise Swagger
         initSwagger(configuration, environment);
+
+        // Set up AWS client
+
+        final S3Client s3Client = S3Client.builder()
+                .region(Region.EU_WEST_1)
+                .forcePathStyle(true)
+                .build();
+
+
 
         // create and register lookupUser resource
         final LookupUserResource lookupUserResource = new LookupUserResource(

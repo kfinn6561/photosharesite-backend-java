@@ -1,6 +1,11 @@
 # photosharesite-backend-java
 Backend for the photo share site written in java
 
+## Setting up the environment
+The following environment variables must be set
+ * `AWS_ACCESS_KEY_ID`
+ * `AWS_SECRET_ACCESS_KEY`
+
 ## Running the server
 First compile the jar using maven
 ```
