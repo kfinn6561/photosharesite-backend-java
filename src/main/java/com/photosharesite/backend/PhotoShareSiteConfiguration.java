@@ -12,12 +12,6 @@ public class PhotoShareSiteConfiguration extends Configuration {
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
 
-    @NotNull
-    private String AWSAccessKey;
-
-    @NotNull
-    private String AWSSecretkey;
-
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
         this.database = factory;
@@ -26,21 +20,5 @@ public class PhotoShareSiteConfiguration extends Configuration {
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
         return database;
-    }
-
-    public String getAWSAccessKey() {
-        return AWSAccessKey;
-    }
-
-    public void setAWSAccessKey(String AWSAccessKey) {
-        this.AWSAccessKey = AWSAccessKey;
-    }
-
-    public String getAWSSecretkey() {
-        return AWSSecretkey;
-    }
-
-    public void setAWSSecretkey(String AWSSecretkey) {
-        this.AWSSecretkey = AWSSecretkey;
     }
 }

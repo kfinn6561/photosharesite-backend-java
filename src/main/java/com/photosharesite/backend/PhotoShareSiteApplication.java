@@ -15,10 +15,6 @@ import io.swagger.jaxrs.config.DefaultJaxrsScanner;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.jdbi.v3.core.Jdbi;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.AwsCredentials;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
@@ -52,16 +48,8 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         initSwagger(configuration, environment);
 
         // Set up AWS client
-        AwsCredentials credentials = AwsBasicCredentials.create(
-                configuration.getAWSAccessKey(),
-                configuration.getAWSSecretkey()
-        );
-        AwsCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(credentials);
-
-        //AwsCredentialsProvider credentialsProvider = InstanceProfileCredentialsProvider.builder().build();
 
         final S3Client s3Client = S3Client.builder()
-                .credentialsProvider(credentialsProvider)
                 .region(Region.EU_WEST_1)
                 .forcePathStyle(true)
                 .build();
