@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UploadFilesResponse {
+public class UploadFileResponse {
     private boolean Success;
 
-    public UploadFilesResponse(){
+    public UploadFileResponse(){
         //Jackson Deserialisation
     }
-    public UploadFilesResponse(boolean success) {
+    public UploadFileResponse(boolean success) {
         Success = success;
     }
 }

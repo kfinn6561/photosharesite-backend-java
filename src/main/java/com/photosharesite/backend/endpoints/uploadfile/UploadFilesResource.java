@@ -11,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.io.InputStream;
 
 @Path("/files/upload")
 @Api(value = "Upload File")
@@ -23,10 +24,13 @@ public class UploadFilesResource {
     }
 
     @POST
-    @ApiOperation(value = "Upload File", response = UploadFilesResponse.class)
+    @ApiOperation(value = "Upload File", response = UploadFileResponse.class)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Timed
-    public UploadFilesResponse getAllFiles(@Valid UploadFilesRequest request) {
-        return new UploadFilesResponse(true);
+    public UploadFileResponse uploadFile(
+            @Valid @FormDataParam("json-body") UploadFilesRequest request,
+            @FormDataParam("file-data") InputStream body
+    ) {
+        return new UploadFileResponse(true);
     }
 }
