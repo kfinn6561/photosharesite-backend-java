@@ -3,6 +3,7 @@ package com.photosharesite.backend.endpoints.uploadfile;
 import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import software.amazon.awssdk.services.s3.S3Client;
 
 import javax.validation.Valid;
