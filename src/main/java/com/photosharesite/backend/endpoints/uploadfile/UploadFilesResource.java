@@ -2,6 +2,8 @@ package com.photosharesite.backend.endpoints.uploadfile;
 
 import com.codahale.metrics.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -25,13 +27,12 @@ public class UploadFilesResource {
     }
 
     @POST
-    @Operation(description = "bbbb")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Operation(description = "upload a file")
     @Timed
     public UploadFileResponse uploadFile(
-            //@Valid @FormDataParam("json-body") UploadFilesRequest request,
-            @FormDataParam("file-data") InputStream body,
-            @FormDataParam("file-details") FormDataContentDisposition fileDetails
+            @Parameter(schema = @Schema(type="string", format = "binary")) @FormDataParam("file") InputStream inputStream,
+            @Parameter(hidden = true) @FormDataParam("file") FormDataContentDisposition fileDetail
     ) {
         return new UploadFileResponse(true);
     }
