@@ -6,6 +6,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -17,13 +20,12 @@ import java.io.InputStream;
 @Path("/files/upload")
 @Produces(MediaType.APPLICATION_JSON)
 public class UploadFilesResource {
-//    private final S3Client s3Client;
-//
-//    public UploadFilesResource(S3Client client){
-//        this.s3Client=client;
-//    }
+    private final S3Client s3Client;
+    private final String BUCKET_NAME;
 
-    public UploadFilesResource() {
+    public UploadFilesResource(S3Client client, String bucketName){
+        this.s3Client=client;
+        this.BUCKET_NAME=bucketName;
     }
 
     @POST
@@ -34,6 +36,12 @@ public class UploadFilesResource {
             @Parameter(schema = @Schema(type="string", format = "binary")) @FormDataParam("file") InputStream inputStream,
             @Parameter(hidden = true) @FormDataParam("file") FormDataContentDisposition fileDetail
     ) {
+
+        PutObjectRequest objectRequest = PutObjectRequest.builder()
+                .bucket(BUCKET_NAME)
+                .key(fileDetail.getFileName())
+                .build();
+        s3Client.putObject(objectRequest, RequestBody.fromInputStream(inputStream,fileDetail.getSize()));
         return new UploadFileResponse(true);
     }
 }

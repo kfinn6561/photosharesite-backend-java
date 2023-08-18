@@ -76,7 +76,8 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
         // create and register UploadFilesResource
         final UploadFilesResource uploadFilesResource = new UploadFilesResource(
-
+                s3Client,
+                configuration.getMediaFilesBucketName()
         );
         environment.jersey().register(uploadFilesResource);
     }
