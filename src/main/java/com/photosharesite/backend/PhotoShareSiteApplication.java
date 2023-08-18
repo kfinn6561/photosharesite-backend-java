@@ -84,8 +84,8 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         // Swagger Resource
         OpenAPI oas = new OpenAPI();
         Info info = new Info()
-                .title("Hello World API")
-                .description("RESTful greetings for you.")
+                .title("Photo Share Site API")
+                .description("API for the photo share site backend")
                 .termsOfService("http://example.com/terms");
 
         oas.info(info);
