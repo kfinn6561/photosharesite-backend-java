@@ -16,6 +16,7 @@ import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.jdbi.v3.core.Jdbi;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
@@ -57,10 +58,9 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
         final S3Client s3Client = S3Client.builder()
                 .region(Region.EU_WEST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .forcePathStyle(true)
                 .build();
-
-
 
         // create and register lookupUser resource
         final LookupUserResource lookupUserResource = new LookupUserResource(
