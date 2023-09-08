@@ -89,6 +89,6 @@ public class UploadFilesResource {
 
         s3Client.completeMultipartUpload(completeMultipartUploadRequest);
 
-        return new UploadFileResponse(true);
+        return new UploadFileResponse(true,"");
     }
 }

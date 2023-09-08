@@ -7,11 +7,13 @@ import lombok.Setter;
 @Setter
 public class UploadFileResponse {
     private boolean Success;
+    private String Reason;
 
     public UploadFileResponse(){
         //Jackson Deserialisation
     }
-    public UploadFileResponse(boolean success) {
+    public UploadFileResponse(boolean success, String reason) {
         Success = success;
+        Reason = reason;
     }
 }
