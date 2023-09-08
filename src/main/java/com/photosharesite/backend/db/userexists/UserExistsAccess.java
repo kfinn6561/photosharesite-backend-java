@@ -16,6 +16,6 @@ public class UserExistsAccess {
                 .mapToBean(UserExistsResponse.class)
                 .one()
         );
-        return response.getExists()==1;
+        return response.getIDExists()==1;
     }
 }
