@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.uploadfile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,12 +22,14 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class UploadFilesResource {
     private final S3Client s3Client;
+    private final UserExistsAccess userExistsDAO;
     private final String BUCKET_NAME;
 
     private static final int PART_SIZE = 5* 1024*1024;
 
-    public UploadFilesResource(S3Client client, String bucketName){
+    public UploadFilesResource(S3Client client, UserExistsAccess userExistsDAO, String bucketName){
         this.s3Client=client;
+        this.userExistsDAO = userExistsDAO;
         this.BUCKET_NAME=bucketName;
     }
 
@@ -39,6 +42,13 @@ public class UploadFilesResource {
             @Parameter(hidden = true) @FormDataParam("file") FormDataContentDisposition fileDetail,
             @QueryParam("UserID") int userID
     ) throws IOException {
+
+        if (!userExistsDAO.UserExists(userID)){
+            return new UploadFileResponse(
+                    false,
+                    String.format("No user exists with ID=%d", userID));
+        }
+
         String keyName = fileDetail.getFileName();
 
         // First create a multipart upload and get the upload id

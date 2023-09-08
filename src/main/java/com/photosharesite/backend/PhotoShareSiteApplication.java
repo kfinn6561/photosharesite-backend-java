@@ -2,6 +2,7 @@ package com.photosharesite.backend;
 
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
+import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import com.photosharesite.backend.endpoints.uploadfile.UploadFilesResource;
@@ -77,6 +78,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         // create and register UploadFilesResource
         final UploadFilesResource uploadFilesResource = new UploadFilesResource(
                 s3Client,
+                new UserExistsAccess(jdbi),
                 configuration.getMediaFilesBucketName()
         );
         environment.jersey().register(uploadFilesResource);
