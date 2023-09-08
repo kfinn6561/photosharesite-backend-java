@@ -53,7 +53,7 @@ public class UploadFilesResource {
         // Create a list of CompletedParts objects
         List<CompletedPart> completedParts = new ArrayList<>();
 
-        int i =0;
+        int i =1; // part numbers must start at 1
         int readBytes;
         byte[] buffer = new byte[PART_SIZE];
         while (true){
