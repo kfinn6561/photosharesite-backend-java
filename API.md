@@ -47,22 +47,19 @@ List of
 Uploads a file to S3 and also adds it to the database
 
 ### Endpoint
-<photosharesite-backend>/files/upload
+<photosharesite-backend>/files/upload?userid=<userid>
 
 ### HTTP method
 POST
 
 ### Request
-| Parameter   | Type         | Notes | Example           |
-|-------------|--------------|-------|-------------------|
-| UserId      | int          |       | 1234              |
-| fileName    | string       |       | "me at the beach" |
-| fileContent | octet stream |       | <file>            |
+| Parameter   | Type   | Notes           | Example           |
+|-------------|--------|-----------------|-------------------|
+| UserId      | int    | query parameter | 1234              |
+| fileContent | binary |                 | <file>            |
 
 ### Response
-| Parameter | Type | Notes | Example |
-|-----------|------|-------|---------|
-| success   | bool |       | True    |
+none
 
 ## Delete File
 Removes a file from the database and also deletes it from AWS.
