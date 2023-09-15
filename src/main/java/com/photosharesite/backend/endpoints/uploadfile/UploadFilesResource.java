@@ -38,7 +38,7 @@ public class UploadFilesResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Operation(description = "upload a file")
     @Timed
-    public UploadFileResponse uploadFile(
+    public void uploadFile(
             @Parameter(schema = @Schema(type="string", format = "binary")) @FormDataParam("file") InputStream inputStream,
             @Parameter(hidden = true) @FormDataParam("file") FormDataContentDisposition fileDetail,
             @QueryParam("UserID") int userID
@@ -97,7 +97,5 @@ public class UploadFilesResource {
                         .build();
 
         s3Client.completeMultipartUpload(completeMultipartUploadRequest);
-
-        return new UploadFileResponse(true,"");
     }
 }
