@@ -6,6 +6,7 @@ import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import com.photosharesite.backend.endpoints.uploadfile.UploadFilesResource;
+import com.photosharesite.backend.exceptions.EntityNotFoundExceptionMapper;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.forms.MultiPartBundle;
@@ -82,6 +83,9 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
                 configuration.getMediaFilesBucketName()
         );
         environment.jersey().register(uploadFilesResource);
+
+        //register exception mappers
+        environment.jersey().register(new EntityNotFoundExceptionMapper());
     }
     private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
         // Swagger Resource

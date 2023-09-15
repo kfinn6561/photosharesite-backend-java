@@ -2,6 +2,7 @@ package com.photosharesite.backend.endpoints.uploadfile;
 
 import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
+import com.photosharesite.backend.exceptions.EntityNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,12 +42,10 @@ public class UploadFilesResource {
             @Parameter(schema = @Schema(type="string", format = "binary")) @FormDataParam("file") InputStream inputStream,
             @Parameter(hidden = true) @FormDataParam("file") FormDataContentDisposition fileDetail,
             @QueryParam("UserID") int userID
-    ) throws IOException {
+    ) throws IOException, EntityNotFoundException {
 
         if (!userExistsDAO.UserExists(userID)){
-            return new UploadFileResponse(
-                    false,
-                    String.format("No user exists with ID=%d", userID));
+            throw new EntityNotFoundException(String.format("No user exists with ID=%d", userID));
         }
 
         String keyName = fileDetail.getFileName();

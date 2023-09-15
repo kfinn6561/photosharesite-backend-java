@@ -3,7 +3,7 @@ logging:
   loggers:
     com.photosharesite: DEBUG
 
-mediaFilesBucketName: kieran-finn-pss-media-files-isjo #todo: pass this in through terraform
+mediaFilesBucketName: kieran-finn-pss-media-files-iptu #todo: pass this in through terraform
 
 database:
   # the name of your JDBC driver
@@ -13,10 +13,10 @@ database:
   user: photosharesite-user #todo: pass this in through terraform
 
   # the password
-  password: R9dUM0mzZclkjN2g #todo: pass this in through terraform
+  password: Y0JEMDNOqfrErWzm #todo: pass this in through terraform
 
   # the JDBC URL
-  url: jdbc:mysql://18.203.253.95:3306/photosharesite #todo: pass this in through terraform
+  url: jdbc:mysql://54.229.227.188:3306/photosharesite #todo: pass this in through terraform
 
   # any properties specific to your JDBC driver:
   properties:
