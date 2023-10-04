@@ -22,7 +22,7 @@ public class LookupUserResource {
 
 
     @POST
-    @Operation(description = "Lookup User or create new user")
+    @Operation(description = "Return the UserID associated with an IP address. Create a new entry if this IP address has not been used before.")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public LookupUserResponse lookupUser(@Valid LookupUserRequest request) {
