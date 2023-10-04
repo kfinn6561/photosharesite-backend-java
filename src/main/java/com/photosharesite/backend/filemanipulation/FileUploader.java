@@ -8,6 +8,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -57,8 +58,9 @@ public class FileUploader {
 //            CompletedPart part = CompletedPart.builder().partNumber(partNumber).eTag(eTag).build();
 
             int currentPartNumber = partNumber;
+            int currentReadBytes = readBytes;
             CompletableFuture<CompletedPart> future = CompletableFuture.supplyAsync(
-                    () -> s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(buffer)).eTag())
+                    () -> s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(Arrays.copyOfRange(buffer,0, currentReadBytes))).eTag())
                             .thenApply(eTag -> CompletedPart.builder().partNumber(currentPartNumber).eTag(eTag).build());
 
             futures.add(future);
