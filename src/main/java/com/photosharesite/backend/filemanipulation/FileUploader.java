@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class FileUploader {
 
@@ -31,10 +33,11 @@ public class FileUploader {
         CreateMultipartUploadResponse initResponse = s3Client.createMultipartUpload(createMultipartUploadRequest);
         String uploadId = initResponse.uploadId();
 
-        // Create a list of CompletedParts objects
-        List<CompletedPart> completedParts = new ArrayList<>();
 
-        int i =1; // part numbers must start at 1
+        // Create a list of completable futures
+        List<CompletableFuture<CompletedPart>> futures = new ArrayList<>();
+
+        int partNumber =1; // part numbers must start at 1
         int readBytes;
         byte[] buffer = new byte[PART_SIZE];
         while (true){
@@ -46,13 +49,24 @@ public class FileUploader {
                     .bucket(BUCKET_NAME)
                     .key(keyName)
                     .uploadId(uploadId)
-                    .partNumber(i).build();
+                    .partNumber(partNumber).build();
 
-            String eTag = s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(buffer)).eTag();
-            CompletedPart part = CompletedPart.builder().partNumber(i).eTag(eTag).build();
-            completedParts.add(part);
-            i++;
+//            String eTag = s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(buffer)).eTag();
+//            CompletedPart part = CompletedPart.builder().partNumber(partNumber).eTag(eTag).build();
+
+            int currentPartNumber = partNumber;
+            CompletableFuture<CompletedPart> future = CompletableFuture.supplyAsync(
+                    () -> s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(buffer)).eTag())
+                            .thenApply(eTag -> CompletedPart.builder().partNumber(currentPartNumber).eTag(eTag).build());
+
+            futures.add(future);
+            partNumber++;
         }
+
+        List<CompletedPart> completedParts
+                = futures.stream()
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList());
 
         // Finally call completeMultipartUpload operation to tell S3 to merge all uploaded
         // parts and finish the multipart operation.
