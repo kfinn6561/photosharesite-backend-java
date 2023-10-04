@@ -2,21 +2,29 @@ package com.photosharesite.backend;
 
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
+import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
+import com.photosharesite.backend.endpoints.uploadfile.UploadFilesResource;
+import com.photosharesite.backend.exceptions.EntityNotFoundExceptionMapper;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.swagger.config.ScannerFactory;
-import io.swagger.jaxrs.config.BeanConfig;
-import io.swagger.jaxrs.config.DefaultJaxrsScanner;
-import io.swagger.jaxrs.listing.ApiListingResource;
-import io.swagger.jaxrs.listing.SwaggerSerializers;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.jdbi.v3.core.Jdbi;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toSet;
 
 public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfiguration> {
 
@@ -34,6 +42,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         // This allows you to host swagger ui on this dropwizard app's host
         final AssetsBundle assetsBundle = new AssetsBundle("/swagger-ui", "/swagger-ui", "index.html");
         bootstrap.addBundle(assetsBundle);
+        bootstrap.addBundle(new MultiPartBundle());
     }
 
     @Override
@@ -51,10 +60,9 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
         final S3Client s3Client = S3Client.builder()
                 .region(Region.EU_WEST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .forcePathStyle(true)
                 .build();
-
-
 
         // create and register lookupUser resource
         final LookupUserResource lookupUserResource = new LookupUserResource(
@@ -67,28 +75,34 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
                 new SelectFilesAccess(jdbi)
         );
         environment.jersey().register(getFilesResource);
+
+        // create and register UploadFilesResource
+        final UploadFilesResource uploadFilesResource = new UploadFilesResource(
+                s3Client,
+                new UserExistsAccess(jdbi),
+                configuration.getMediaFilesBucketName()
+        );
+        environment.jersey().register(uploadFilesResource);
+
+        //register exception mappers
+        environment.jersey().register(new EntityNotFoundExceptionMapper());
     }
     private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
         // Swagger Resource
-        // The ApiListingResource creates the swagger.json file at localhost:8080/swagger.json
-        environment.jersey().register(new ApiListingResource());
-        environment.jersey().register(SwaggerSerializers.class);
+        OpenAPI oas = new OpenAPI();
+        Info info = new Info()
+                .title("Photo Share Site API")
+                .description("API for the photo share site backend")
+                .termsOfService("http://example.com/terms");
 
-        Package objPackage = this.getClass().getPackage();
-        String version = objPackage.getImplementationVersion();
-
-        // Swagger Scanner, which finds all the resources for @Api Annotations
-        ScannerFactory.setScanner(new DefaultJaxrsScanner());
-
-        //This is what is shown when you do "http://localhost:8080/swagger-ui/"
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion(version);
-        beanConfig.setSchemes(new String[] { "http" });
-        beanConfig.setHost("localhost:8080");
-        beanConfig.setPrettyPrint(true);
-        beanConfig.setDescription("Photo Share Site");
-        beanConfig.setResourcePackage("com.photosharesite.backend.endpoints");
-        beanConfig.setScan(true);
+        oas.info(info);
+        SwaggerConfiguration oasConfig = new SwaggerConfiguration()
+                .openAPI(oas)
+                .prettyPrint(true)
+                .resourcePackages(Stream.of("com.photosharesite.backend.endpoints")
+                        .collect(toSet()));
+        environment.jersey().register(new OpenApiResource()
+                .openApiConfiguration(oasConfig));
     }
 
 }

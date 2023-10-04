@@ -3,8 +3,7 @@ package com.photosharesite.backend.endpoints.getfiles;
 import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/files/all")
-@Api(value = "Get All Files")
 @Produces(MediaType.APPLICATION_JSON)
 public class GetFilesResource {
     private final SelectFilesAccess dao;
@@ -26,7 +24,7 @@ public class GetFilesResource {
     }
 
     @POST
-    @ApiOperation(value = "Get All Files", response = GetFilesResponse.class)
+    @Operation(description = "Get details of all files")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public List<GetFilesResponse> getAllFiles(@Valid GetFilesRequest request) {

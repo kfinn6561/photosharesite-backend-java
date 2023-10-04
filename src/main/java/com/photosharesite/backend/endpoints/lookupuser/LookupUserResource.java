@@ -2,8 +2,7 @@ package com.photosharesite.backend.endpoints.lookupuser;
 
 import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -13,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/user/lookup")
-@Api(value = "Lookup User")
 @Produces(MediaType.APPLICATION_JSON)
 public class LookupUserResource {
     private final InsertOrSelectUserAccess dao;
@@ -24,7 +22,7 @@ public class LookupUserResource {
 
 
     @POST
-    @ApiOperation(value = "Lookup User", response = LookupUserResponse.class)
+    @Operation(description = "Return the UserID associated with an IP address. Create a new entry if this IP address has not been used before.")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public LookupUserResponse lookupUser(@Valid LookupUserRequest request) {
