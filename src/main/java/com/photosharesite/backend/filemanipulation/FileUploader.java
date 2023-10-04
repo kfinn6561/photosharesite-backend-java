@@ -54,9 +54,6 @@ public class FileUploader {
                     .uploadId(uploadId)
                     .partNumber(partNumber).build();
 
-//            String eTag = s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(buffer)).eTag();
-//            CompletedPart part = CompletedPart.builder().partNumber(partNumber).eTag(eTag).build();
-
             int currentPartNumber = partNumber;
             int currentReadBytes = readBytes;
             CompletableFuture<CompletedPart> future = CompletableFuture.supplyAsync(
