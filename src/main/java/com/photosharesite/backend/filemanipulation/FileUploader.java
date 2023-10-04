@@ -4,6 +4,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -40,8 +41,9 @@ public class FileUploader {
         int partNumber =1; // part numbers must start at 1
         int readBytes;
         byte[] buffer = new byte[PART_SIZE];
+        BufferedInputStream bufferedStream = new BufferedInputStream(inputStream, PART_SIZE);
         while (true){
-            readBytes = inputStream.read(buffer);
+            readBytes = bufferedStream.read(buffer);
             if (readBytes == -1) break;
 
             // Create the request to upload a part.
