@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/files/all")
-//@Api(value = "Get All Files")
 @Produces(MediaType.APPLICATION_JSON)
 public class GetFilesResource {
     private final SelectFilesAccess dao;
