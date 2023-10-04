@@ -22,7 +22,7 @@ public class LookupUserResource {
 
 
     @POST
-    @Operation(description = "Aaa")
+    @Operation(description = "Lookup User or create new user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public LookupUserResponse lookupUser(@Valid LookupUserRequest request) {

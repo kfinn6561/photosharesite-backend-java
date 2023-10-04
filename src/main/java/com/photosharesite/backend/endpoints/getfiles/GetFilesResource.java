@@ -25,7 +25,7 @@ public class GetFilesResource {
     }
 
     @POST
-    @Operation(description = "VV")
+    @Operation(description = "Get all files")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
     public List<GetFilesResponse> getAllFiles(@Valid GetFilesRequest request) {
