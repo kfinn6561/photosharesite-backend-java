@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.uploadfile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.photosharesite.backend.db.insertfile.InsertFileAccess;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.exceptions.EntityNotFoundException;
 import com.photosharesite.backend.filemanipulation.FileUploader;
@@ -20,10 +21,12 @@ import java.io.InputStream;
 @Produces(MediaType.APPLICATION_JSON)
 public class UploadFilesResource {
     private final UserExistsAccess userExistsDAO;
+    private final InsertFileAccess insertFileAccessDAO;
     private final FileUploader fileUploader;
 
-    public UploadFilesResource(S3Client client, UserExistsAccess userExistsDAO, String bucketName){
+    public UploadFilesResource(S3Client client, UserExistsAccess userExistsDAO, InsertFileAccess insertFileAccessDAO, String bucketName){
         this.userExistsDAO = userExistsDAO;
+        this.insertFileAccessDAO = insertFileAccessDAO;
         this.fileUploader = new FileUploader(client, bucketName);
     }
 
@@ -43,6 +46,8 @@ public class UploadFilesResource {
 
         String keyName = fileDetail.getFileName();
 
-        fileUploader.UploadFileMultipart(keyName, inputStream);
+        String url = fileUploader.UploadFileMultipart(keyName, inputStream);
+
+        insertFileAccessDAO.InsertFile(url, keyName, userID);
     }
 }
