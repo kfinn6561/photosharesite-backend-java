@@ -2,7 +2,12 @@ package com.photosharesite.backend.filemanipulation;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.CompletedMultipartUpload;
+import software.amazon.awssdk.services.s3.model.CompletedPart;
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -55,9 +60,9 @@ public class FileUploader {
                     .partNumber(partNumber).build();
 
             int currentPartNumber = partNumber;
-            int currentReadBytes = readBytes;
+            byte[] BytesToUpload = Arrays.copyOfRange(buffer,0, readBytes);
             CompletableFuture<CompletedPart> future = CompletableFuture.supplyAsync(
-                    () -> s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(Arrays.copyOfRange(buffer,0, currentReadBytes))).eTag())
+                    () -> s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(BytesToUpload)).eTag())
                             .thenApply(eTag -> CompletedPart.builder().partNumber(currentPartNumber).eTag(eTag).build());
 
             futures.add(future);
