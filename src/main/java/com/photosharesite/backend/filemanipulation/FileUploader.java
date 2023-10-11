@@ -39,13 +39,13 @@ public class FileUploader {
         // Create a list of completable futures
         List<CompletableFuture<CompletedPart>> futures = new ArrayList<>();
 
-        int partNumber =1; // part numbers must start at 1
+        int partNumber = 1; // part numbers must start at 1
         int readBytes;
         byte[] buffer = new byte[PART_SIZE];
         BufferedInputStream bufferedStream = new BufferedInputStream(inputStream, PART_SIZE);
         while (true){
-            readBytes = bufferedStream.read(buffer);
-            if (readBytes == -1) break;
+            readBytes = bufferedStream.readNBytes(buffer, 0, PART_SIZE);
+            if (readBytes == 0) break;
 
             // Create the request to upload a part.
             UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
