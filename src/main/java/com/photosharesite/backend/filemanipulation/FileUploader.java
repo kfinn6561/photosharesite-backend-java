@@ -3,6 +3,7 @@ package com.photosharesite.backend.filemanipulation;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.model.CompletedMultipartUpload;
 import software.amazon.awssdk.services.s3.model.CompletedPart;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
@@ -30,7 +31,7 @@ public class FileUploader {
         this.BUCKET_NAME = BUCKET_NAME;
     }
 
-    public void UploadFileMultipart(String keyName, InputStream inputStream) throws IOException {
+    public String UploadFileMultipart(String keyName, InputStream inputStream) throws IOException {
         // First create a multipart upload and get the upload id
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
                 .bucket(BUCKET_NAME)
@@ -88,6 +89,8 @@ public class FileUploader {
                         .multipartUpload(completedMultipartUpload)
                         .build();
 
-        s3Client.completeMultipartUpload(completeMultipartUploadRequest);
+        CompleteMultipartUploadResponse response = s3Client.completeMultipartUpload(completeMultipartUploadRequest);
+
+        return response.location();
     }
 }

@@ -1,5 +1,6 @@
 package com.photosharesite.backend;
 
+import com.photosharesite.backend.db.insertfile.InsertFileAccess;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
@@ -80,6 +81,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         final UploadFilesResource uploadFilesResource = new UploadFilesResource(
                 s3Client,
                 new UserExistsAccess(jdbi),
+                new InsertFileAccess(jdbi),
                 configuration.getMediaFilesBucketName()
         );
         environment.jersey().register(uploadFilesResource);
