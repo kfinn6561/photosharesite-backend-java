@@ -48,6 +48,6 @@ public class UploadFilesResource {
 
         String url = fileUploader.UploadFileMultipart(keyName, inputStream);
 
-        insertFileAccessDAO.InsertFile(url, keyName, userID);
+        insertFileAccessDAO.InsertFile(keyName, url, userID);
     }
 }

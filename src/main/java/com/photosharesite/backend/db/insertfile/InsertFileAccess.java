@@ -10,11 +10,11 @@ public class InsertFileAccess {
         this.jdbi = jdbi;
     }
 
-    public void InsertFile(String URL, String FileName, int OwnerID) {
-         jdbi.useHandle(handle -> handle.createCall("CALL " + INSERT_FILE_PROC_NAME + "(:URL, :FileName, :OwnerID)")
-                .bind("URL", URL)
-                .bind("FileName", FileName)
-                .bind("OwnerID", OwnerID)
+    public void InsertFile(String FileName, String URL, int OwnerID) {
+         jdbi.useHandle(handle -> handle.createCall("CALL " + INSERT_FILE_PROC_NAME + "(:FileName, :URL, :OwnerID)")
+                 .bind("FileName", FileName)
+                 .bind("URL", URL)
+                 .bind("OwnerID", OwnerID)
                  .invoke()
         );
     }
