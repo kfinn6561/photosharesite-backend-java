@@ -73,5 +73,8 @@ POST
 ### Request
 | Parameter | Type | Notes                                                 | Example |
 |-----------|------|-------------------------------------------------------|---------|
-| FileID    | int  | ID of the file to delete                              | 4321    |
+| FileID    | int  |                                                       | 4321    |
 | UserId    | int  | used to confirm we have the right to delete this file | 1234    |
+
+### Response
+none
