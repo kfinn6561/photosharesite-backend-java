@@ -27,6 +27,10 @@ target/
 
 # build artefatcts
 dependency-reduced-pom.xml
+build/
 
 #intellij
 .idea/
+
+#gradle artefacts
+.gradle/
