@@ -7,9 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetFilesRequest {
+    @JsonProperty("IPAddress")
     private String IPAddress;
 
-    public GetFilesRequest(@JsonProperty("IPAddress") String IPAddress) {
+    public GetFilesRequest(){
+        //Jackson Deserialisation
+    }
+
+    public GetFilesRequest(String IPAddress) {
         this.IPAddress = IPAddress;
     }
 }
