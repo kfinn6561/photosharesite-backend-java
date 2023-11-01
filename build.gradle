@@ -14,6 +14,8 @@ compileJava {
     options.compilerArgs.addAll(['--release', '17'])
 }
 
+mainClassName = "com.photosharesite.backend.PhotoShareSiteApplication"
+
 dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     implementation 'io.dropwizard:dropwizard-core:2.1.5'
