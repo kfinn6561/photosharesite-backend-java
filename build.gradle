@@ -10,6 +10,10 @@ repositories {
     mavenCentral()
 }
 
+compileJava {
+    options.compilerArgs.addAll(['--release', '17'])
+}
+
 dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     implementation 'io.dropwizard:dropwizard-core:2.1.5'
@@ -35,27 +39,6 @@ group = 'com.photosharesite'
 version = '1.0'
 description = 'PhotoShareSite'
 java.sourceCompatibility = JavaVersion.VERSION_1_9
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-tasks.withType(Javadoc) {
-    options.encoding = 'UTF-8'
-}
 
 run {
     args 'server', 'config.yml'
