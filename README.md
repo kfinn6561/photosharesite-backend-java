@@ -7,14 +7,15 @@ The following environment variables must be set
  * `AWS_SECRET_ACCESS_KEY`
 
 ## Running the server
-First compile the jar using maven
+Run with gradle
 ```
-mvn package
+./gradlew run
 ```
 
-Then run the jar
+## Running the tests
+Run the tests with gradle
 ```
-java -jar target/backend-1.0.jar server config.yml
+./gradlew test
 ```
 
 Then go to http://localhost:8080/swagger-ui to test the endpoints
