@@ -1,7 +1,8 @@
 package com.photosharesite.backend.endpoints.deletefile;
 
 import com.codahale.metrics.annotation.Timed;
-import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
+import com.photosharesite.backend.db.deletefile.DeleteFileAccess;
+import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.swagger.v3.oas.annotations.Operation;
 
 import javax.validation.Valid;
@@ -14,10 +15,12 @@ import javax.ws.rs.core.MediaType;
 @Path("/files/delete")
 @Produces(MediaType.APPLICATION_JSON)
 public class DeleteFileResource {
-    private final SelectFilesAccess dao;
+    private final DeleteFileAccess dao;
+    private final FileDeleter fileDeleter;
 
-    public DeleteFileResource(SelectFilesAccess dao) {
+    public DeleteFileResource(DeleteFileAccess dao, FileDeleter fileDeleter) {
         this.dao = dao;
+        this.fileDeleter = fileDeleter;
     }
 
     @POST
