@@ -8,14 +8,7 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
-
-    maven {
-        url = uri('https://artifactory.skyscannertools.net/artifactory/maven')
-    }
+    mavenCentral()
 }
 
 dependencies {
