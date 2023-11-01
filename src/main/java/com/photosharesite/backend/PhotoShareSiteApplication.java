@@ -55,7 +55,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
 
         // initialise Swagger
-        initSwagger(configuration, environment);
+        initSwagger(environment);
 
         // Set up AWS client
 
@@ -89,7 +89,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
         //register exception mappers
         environment.jersey().register(new EntityNotFoundExceptionMapper());
     }
-    private void initSwagger(PhotoShareSiteConfiguration configuration, Environment environment) {
+    private void initSwagger(Environment environment) {
         // Swagger Resource
         OpenAPI oas = new OpenAPI();
         Info info = new Info()
