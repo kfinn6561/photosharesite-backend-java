@@ -10,7 +10,10 @@ public class DeleteFileAccess {
         this.jdbi = jdbi;
     }
 
-    public boolean DeleteFile(String fileName){
-        return true;
+    public void DeleteFile(int fileID){
+        jdbi.useHandle(handle -> handle.createCall("CALL " + DELETE_FILE_PROC_NAME + "(:FileID)")
+                .bind("FileID", fileID)
+                .invoke()
+        );
     }
 }
