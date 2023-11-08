@@ -7,6 +7,7 @@ import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import com.photosharesite.backend.endpoints.uploadfile.UploadFilesResource;
+import com.photosharesite.backend.exceptions.AccessDeniedException;
 import com.photosharesite.backend.exceptions.EntityNotFoundExceptionMapper;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -88,6 +89,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
         //register exception mappers
         environment.jersey().register(new EntityNotFoundExceptionMapper());
+        environment.jersey().register(new AccessDeniedException());
     }
     private void initSwagger(Environment environment) {
         // Swagger Resource
