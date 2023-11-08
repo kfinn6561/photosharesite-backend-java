@@ -3,7 +3,9 @@ package com.photosharesite.backend.endpoints.deletefile;
 import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.db.deletefile.DeleteFileAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsAccess;
+import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
+import com.photosharesite.backend.exceptions.AccessDeniedException;
 import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -33,7 +35,15 @@ public class DeleteFileResource {
     @Operation(description = "Delete a file from the DB and the server")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
-    public void deleteFile(@Valid DeleteFileRequest request) {
-        return;
+    public void deleteFile(@Valid DeleteFileRequest request) throws AccessDeniedException {
+
+        int userID= selectUserDAO.InsertOrSelectUser(request.getIPAddress());
+        GetFileDetailsResponse fileDetails = getFileDetailsDAO.GetFileDetails(request.getFileID());
+
+        if (userID!= fileDetails.getOwnerID()){
+            throw new AccessDeniedException("You do not have permission to delete this file.");
+        }
+
+        deleteFileDAO.DeleteFile(request.getFileID());
     }
 }
