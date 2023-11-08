@@ -45,5 +45,6 @@ public class DeleteFileResource {
         }
 
         deleteFileDAO.DeleteFile(request.getFileID());
+        fileDeleter.DeleteFile(fileDetails.getFileName());
     }
 }
