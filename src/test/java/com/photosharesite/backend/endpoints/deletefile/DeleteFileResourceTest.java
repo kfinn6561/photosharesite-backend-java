@@ -28,11 +28,12 @@ public class DeleteFileResourceTest {
     @Mock
     FileDeleter fileDeleter;
 
-    private final DeleteFileResource deleteFileResource = new DeleteFileResource(deleteFileDAO,fileDetailsDAO,selectUserDAO,fileDeleter);
+    private  DeleteFileResource deleteFileResource;
 
     @BeforeEach
     public void setup(){
         when(selectUserDAO.InsertOrSelectUser(testIPAddress)).thenReturn(testUserID);
+        this.deleteFileResource=new DeleteFileResource(deleteFileDAO,fileDetailsDAO,selectUserDAO,fileDeleter);
     }
 
     @Test
