@@ -6,12 +6,14 @@ import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.exceptions.AccessDeniedException;
 import com.photosharesite.backend.filemanipulation.FileDeleter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -49,7 +51,24 @@ public class DeleteFileResourceTest {
         verify(fileDeleter).DeleteFile(testFileName);
     }
 
+    @Test
+    public void deleteFile_AccessDenied() {
+        // Given: the file does not belong to the user
+        when(fileDetailsDAO.GetFileDetails(testFileID)).thenReturn(fileNotBelongingToUser());
+
+        // When: we attempt to delete the file
+        Assertions.assertThrows(AccessDeniedException.class,()-> deleteFileResource.deleteFile(request));
+
+        // Then: an AccessDeniedException is thrown and the file is not deleted
+        verify(deleteFileDAO, never()).DeleteFile(testFileID);
+        verify(fileDeleter, never()).DeleteFile(testFileName);
+    }
+
     private GetFileDetailsResponse fileBelongingToUser(){
         return new GetFileDetailsResponse("http.example.com",testFileName,testUserID);
+    }
+
+    private GetFileDetailsResponse fileNotBelongingToUser(){
+        return new GetFileDetailsResponse("http.example.com",testFileName,73283927);
     }
 }
