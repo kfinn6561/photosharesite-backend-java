@@ -2,6 +2,8 @@ package com.photosharesite.backend;
 
 import static java.util.stream.Collectors.toSet;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.photosharesite.backend.db.deletefile.DeleteFileAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsAccess;
 import com.photosharesite.backend.db.insertfile.InsertFileAccess;
@@ -34,7 +36,10 @@ import software.amazon.awssdk.services.s3.S3Client;
 public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfiguration> {
 
   public static void main(final String[] args) throws Exception {
-    new PhotoShareSiteApplication().run(args);
+    Injector injector = Guice.createInjector(
+            new InjectorModule()
+    );
+    injector.getInstance(PhotoShareSiteApplication.class).run(args);
   }
 
   @Override

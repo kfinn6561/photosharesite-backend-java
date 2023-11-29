@@ -22,26 +22,31 @@ compileJava {
 
 mainClassName = "com.photosharesite.backend.PhotoShareSiteApplication"
 
+project.ext {
+    dropwizardVersion = '2.1.5'
+}
+
 dependencies {
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-    implementation 'io.dropwizard:dropwizard-core:2.1.5'
-    implementation 'io.dropwizard:dropwizard-jdbi3:2.1.5'
-    implementation 'io.dropwizard:dropwizard-assets:1.3.2'
-    implementation 'io.dropwizard:dropwizard-forms:2.1.5'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.5'
-    implementation 'jakarta.validation:jakarta.validation-api:2.0.2'
-    implementation 'org.hibernate.validator:hibernate-validator:6.2.5.Final'
-    implementation 'com.mysql:mysql-connector-j:8.0.32'
-    implementation 'software.amazon.awssdk:s3:2.20.90'
-    implementation 'software.amazon.awssdk:auth:2.20.90'
-    implementation 'org.yaml:snakeyaml:1.33'
-    implementation 'io.swagger.core.v3:swagger-core:2.2.15'
-    implementation 'io.swagger.core.v3:swagger-jaxrs2:2.2.15'
-    implementation 'io.swagger.core.v3:swagger-integration:2.2.15'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-    testImplementation 'org.mockito:mockito-core:5.3.1'
-    testImplementation 'org.mockito:mockito-junit-jupiter:5.7.0'
-    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor "org.projectlombok:lombok:1.18.26"
+    implementation "io.dropwizard:dropwizard-core:${dropwizardVersion}"
+    implementation "io.dropwizard:dropwizard-jdbi3:${dropwizardVersion}"
+    implementation "io.dropwizard:dropwizard-assets:1.3.2"
+    implementation "io.dropwizard:dropwizard-forms:${dropwizardVersion}"
+    implementation 'ru.vyarus:dropwizard-guicey:5.10.0'
+    implementation "com.fasterxml.jackson.core:jackson-annotations:2.13.5"
+    implementation "jakarta.validation:jakarta.validation-api:2.0.2"
+    implementation "org.hibernate.validator:hibernate-validator:6.2.5.Final"
+    implementation "com.mysql:mysql-connector-j:8.0.32"
+    implementation "software.amazon.awssdk:s3:2.20.90"
+    implementation "software.amazon.awssdk:auth:2.20.90"
+    implementation "org.yaml:snakeyaml:1.33"
+    implementation "io.swagger.core.v3:swagger-core:2.2.15"
+    implementation "io.swagger.core.v3:swagger-jaxrs2:2.2.15"
+    implementation "io.swagger.core.v3:swagger-integration:2.2.15"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.9.2"
+    testImplementation "org.mockito:mockito-core:5.3.1"
+    testImplementation "org.mockito:mockito-junit-jupiter:5.7.0"
+    compileOnly "org.projectlombok:lombok:1.18.26"
 }
 
 group = 'com.photosharesite'
