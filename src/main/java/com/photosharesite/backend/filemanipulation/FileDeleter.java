@@ -1,6 +1,7 @@
 package com.photosharesite.backend.filemanipulation;
 
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 
 public class FileDeleter {
     private final S3Client s3Client;
@@ -11,8 +12,12 @@ public class FileDeleter {
         this.BUCKET_NAME = BUCKET_NAME;
     }
 
-    public boolean DeleteFile(String fileName){
-        //todo: fill in
-        return true;
+    public void DeleteFile(String fileName){
+        s3Client.deleteObject(
+                DeleteObjectRequest.builder()
+                        .bucket(BUCKET_NAME)
+                        .key(fileName)
+                        .build()
+        );
     }
 }
