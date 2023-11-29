@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserExistsResponse {
-    private int IDExists;
+  private int IDExists;
 
-    public UserExistsResponse(){
-        // Jackson deserialisation
-    }
+  public UserExistsResponse() {
+    // Jackson deserialisation
+  }
 
-    public UserExistsResponse(int IDExists) {
-        this.IDExists = IDExists;
-    }
+  public UserExistsResponse(int IDExists) {
+    this.IDExists = IDExists;
+  }
 }

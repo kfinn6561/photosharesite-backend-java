@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LookupUserResponse {
-    private int UserID;
+  private int UserID;
 
-    public LookupUserResponse() {
-        // Jackson deserialization
-    }
+  public LookupUserResponse() {
+    // Jackson deserialization
+  }
 
-    public LookupUserResponse(int userID) {
-        UserID = userID;
-    }
+  public LookupUserResponse(int userID) {
+    UserID = userID;
+  }
 }

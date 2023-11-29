@@ -4,13 +4,14 @@ import lombok.Getter;
 
 @Getter
 public class AccessDeniedException extends Exception {
-    private String errorMessage;
-    public AccessDeniedException(String errorMessage){
-        super(errorMessage);
-        this.errorMessage=errorMessage;
-    }
+  private String errorMessage;
 
-    public AccessDeniedException() {
-        //Jackson Deserialisation
-    }
+  public AccessDeniedException(String errorMessage) {
+    super(errorMessage);
+    this.errorMessage = errorMessage;
+  }
+
+  public AccessDeniedException() {
+    // Jackson Deserialisation
+  }
 }

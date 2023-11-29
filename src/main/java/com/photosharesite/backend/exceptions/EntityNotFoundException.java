@@ -4,13 +4,14 @@ import lombok.Getter;
 
 @Getter
 public class EntityNotFoundException extends Exception {
-    private String errorMessage;
-    public EntityNotFoundException(String errorMessage){
-        super(errorMessage);
-        this.errorMessage=errorMessage;
-    }
+  private String errorMessage;
 
-    public EntityNotFoundException() {
-        //Jackson Deserialisation
-    }
+  public EntityNotFoundException(String errorMessage) {
+    super(errorMessage);
+    this.errorMessage = errorMessage;
+  }
+
+  public EntityNotFoundException() {
+    // Jackson Deserialisation
+  }
 }
