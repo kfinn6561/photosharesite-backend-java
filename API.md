@@ -65,12 +65,16 @@ none
 Removes a file from the database and also deletes it from AWS.
 
 ### Endpoint
-<photosharesite-backend>/files/<file-id>
+<photosharesite-backend>/files/delete
 
 ### HTTP method
-DELETE
+POST
 
 ### Request
-| Parameter | Type | Notes                                                 | Example |
-|-----------|------|-------------------------------------------------------|---------|
-| UserId    | int  | used to confirm we have the right to delete this file | 1234    |
+| Parameter | Type   | Notes                                                 | Example     |
+|-----------|--------|-------------------------------------------------------|-------------|
+| FileID    | int    |                                                       | 4321        |
+| IPAddress | String | used to confirm we have the right to delete this file | "127.0.0.1" |
+
+### Response
+none
