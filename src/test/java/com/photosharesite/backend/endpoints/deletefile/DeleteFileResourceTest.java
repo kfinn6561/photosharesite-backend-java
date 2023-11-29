@@ -68,7 +68,7 @@ public class DeleteFileResourceTest {
 
     @Test
     public void deleteFile_FileNotExists() {
-        // Given: the file does not belong to the user
+        // Given: the file does not exist
         when(fileDetailsDAO.GetFileDetails(testFileID)).thenReturn(Optional.empty());
 
         // When: we attempt to delete the file
