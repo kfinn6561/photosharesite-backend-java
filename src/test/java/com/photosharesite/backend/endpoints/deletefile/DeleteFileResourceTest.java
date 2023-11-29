@@ -67,6 +67,19 @@ public class DeleteFileResourceTest {
         verify(fileDeleter, never()).DeleteFile(testFileName);
     }
 
+    @Test
+    public void deleteFile_FileNotExists() {
+        // Given: the file does not belong to the user
+        when(fileDetailsDAO.GetFileDetails(testFileID)).thenReturn(Optional.empty());
+
+        // When: we attempt to delete the file
+        Assertions.assertThrows(EntityNotFoundException.class,()-> deleteFileResource.deleteFile(request));
+
+        // Then: an EntityNotFoundException is thrown and the file is not deleted
+        verify(deleteFileDAO, never()).DeleteFile(testFileID);
+        verify(fileDeleter, never()).DeleteFile(testFileName);
+    }
+
     private GetFileDetailsResponse fileBelongingToUser(){
         return new GetFileDetailsResponse("http.example.com",testFileName,testUserID);
     }
