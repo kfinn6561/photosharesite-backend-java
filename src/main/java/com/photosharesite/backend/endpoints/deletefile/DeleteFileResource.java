@@ -6,6 +6,7 @@ import com.photosharesite.backend.db.getfiledetails.GetFileDetailsAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.exceptions.AccessDeniedException;
+import com.photosharesite.backend.exceptions.EntityNotFoundException;
 import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -15,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Optional;
 
 @Path("/files/delete")
 @Produces(MediaType.APPLICATION_JSON)
@@ -35,16 +37,20 @@ public class DeleteFileResource {
     @Operation(description = "Delete a file from the DB and the server")
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
-    public void deleteFile(@Valid DeleteFileRequest request) throws AccessDeniedException {
+    public void deleteFile(@Valid DeleteFileRequest request) throws AccessDeniedException, EntityNotFoundException {
 
         int userID= selectUserDAO.InsertOrSelectUser(request.getIPAddress());
-        GetFileDetailsResponse fileDetails = getFileDetailsDAO.GetFileDetails(request.getFileID());
+        Optional<GetFileDetailsResponse> fileDetails = getFileDetailsDAO.GetFileDetails(request.getFileID());
 
-        if (userID!= fileDetails.getOwnerID()){
+        if (fileDetails.isEmpty()){
+            throw new EntityNotFoundException("this file does not exist");
+        }
+
+        if (userID!= fileDetails.get().getOwnerID()){
             throw new AccessDeniedException("You do not have permission to delete this file.");
         }
 
         deleteFileDAO.DeleteFile(request.getFileID());
-        fileDeleter.DeleteFile(fileDetails.getFileName());
+        fileDeleter.DeleteFile(fileDetails.get().getFileName());
     }
 }
