@@ -30,8 +30,7 @@ public class DeleteFileResourceTest {
     @Mock InsertOrSelectUserAccess selectUserDAO;
     @Mock GetFileDetailsAccess fileDetailsDAO;
     @Mock DeleteFileAccess deleteFileDAO;
-    @Mock
-    FileDeleter fileDeleter;
+    @Mock FileDeleter fileDeleter;
 
     private  DeleteFileResource deleteFileResource;
 
