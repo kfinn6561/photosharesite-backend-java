@@ -29,6 +29,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import java.util.stream.Stream;
 import org.jdbi.v3.core.Jdbi;
+import ru.vyarus.dropwizard.guice.GuiceBundle;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -36,10 +37,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfiguration> {
 
   public static void main(final String[] args) throws Exception {
-    Injector injector = Guice.createInjector(
-            new InjectorModule()
-    );
-    injector.getInstance(PhotoShareSiteApplication.class).run(args);
+    new PhotoShareSiteApplication().run(args);
   }
 
   @Override
@@ -49,6 +47,10 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
   @Override
   public void initialize(final Bootstrap<PhotoShareSiteConfiguration> bootstrap) {
+    bootstrap.addBundle(GuiceBundle.builder()
+            .enableAutoConfig()
+                    .modules(new InjectorModule())
+            .build());
     // This allows you to host swagger ui on this dropwizard app's host
     final AssetsBundle assetsBundle = new AssetsBundle("/swagger-ui", "/swagger-ui", "index.html");
     bootstrap.addBundle(assetsBundle);

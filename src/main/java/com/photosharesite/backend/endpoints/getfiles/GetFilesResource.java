@@ -6,6 +6,7 @@ import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 public class GetFilesResource {
   private final SelectFilesAccess dao;
 
+  @Inject
   public GetFilesResource(SelectFilesAccess dao) {
     this.dao = dao;
   }
