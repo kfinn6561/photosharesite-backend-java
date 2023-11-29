@@ -7,18 +7,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DeleteFileRequest {
-    @JsonProperty("FileID")
-    private int fileID;
+  @JsonProperty("FileID")
+  private int fileID;
 
-    @JsonProperty("IPAddress")
-    private String IPAddress;
+  @JsonProperty("IPAddress")
+  private String IPAddress;
 
-    public DeleteFileRequest(){
-        //Jackson Deserialisation
-    }
+  public DeleteFileRequest() {
+    // Jackson Deserialisation
+  }
 
-    public DeleteFileRequest(int fileID, String IPAddress) {
-        this.fileID = fileID;
-        this.IPAddress = IPAddress;
-    }
+  public DeleteFileRequest(int fileID, String IPAddress) {
+    this.fileID = fileID;
+    this.IPAddress = IPAddress;
+  }
 }

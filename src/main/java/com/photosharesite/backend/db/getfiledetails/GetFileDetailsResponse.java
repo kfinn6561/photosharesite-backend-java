@@ -6,17 +6,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetFileDetailsResponse {
-    private String URL;
-    private String FileName;
-    private int OwnerID;
+  private String URL;
+  private String FileName;
+  private int OwnerID;
 
-    public GetFileDetailsResponse() {
-        // Jackson deserialisation
-    }
+  public GetFileDetailsResponse() {
+    // Jackson deserialisation
+  }
 
-    public GetFileDetailsResponse(String URL, String fileName, int ownerID) {
-        this.URL = URL;
-        FileName = fileName;
-        OwnerID = ownerID;
-    }
+  public GetFileDetailsResponse(String URL, String fileName, int ownerID) {
+    this.URL = URL;
+    FileName = fileName;
+    OwnerID = ownerID;
+  }
 }

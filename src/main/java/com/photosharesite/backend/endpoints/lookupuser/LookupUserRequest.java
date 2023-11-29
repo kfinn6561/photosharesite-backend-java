@@ -7,14 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LookupUserRequest {
-    @JsonProperty("IPAddress")
-    private String IPAddress;
+  @JsonProperty("IPAddress")
+  private String IPAddress;
 
-    public LookupUserRequest(){
-        //Jackson Deserialisation
-    }
+  public LookupUserRequest() {
+    // Jackson Deserialisation
+  }
 
-    public LookupUserRequest(String IPAddress) {
-        this.IPAddress = IPAddress;
-    }
+  public LookupUserRequest(String IPAddress) {
+    this.IPAddress = IPAddress;
+  }
 }
