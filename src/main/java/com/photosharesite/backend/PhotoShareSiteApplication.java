@@ -10,7 +10,7 @@ import com.photosharesite.backend.endpoints.deletefile.DeleteFileResource;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import com.photosharesite.backend.endpoints.uploadfile.UploadFilesResource;
-import com.photosharesite.backend.exceptions.AccessDeniedException;
+import com.photosharesite.backend.exceptions.AccessDeniedExceptionMapper;
 import com.photosharesite.backend.exceptions.EntityNotFoundExceptionMapper;
 import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.dropwizard.Application;
@@ -102,7 +102,7 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
 
         //register exception mappers
         environment.jersey().register(new EntityNotFoundExceptionMapper());
-        environment.jersey().register(new AccessDeniedException());
+        environment.jersey().register(new AccessDeniedExceptionMapper());
     }
     private void initSwagger(Environment environment) {
         // Swagger Resource
