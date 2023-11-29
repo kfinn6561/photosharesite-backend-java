@@ -41,7 +41,7 @@ dependencies {
 group = 'com.photosharesite'
 version = '1.0'
 description = 'PhotoShareSite'
-java.sourceCompatibility = JavaVersion.VERSION_1_9
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 run {
     args 'server', 'config.yml'
@@ -56,3 +56,5 @@ test {
     }
     useJUnitPlatform()
 }
+
+targetCompatibility = JavaVersion.VERSION_17
