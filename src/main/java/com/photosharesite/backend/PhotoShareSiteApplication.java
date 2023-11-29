@@ -1,14 +1,18 @@
 package com.photosharesite.backend;
 
+import com.photosharesite.backend.db.deletefile.DeleteFileAccess;
+import com.photosharesite.backend.db.getfiledetails.GetFileDetailsAccess;
 import com.photosharesite.backend.db.insertfile.InsertFileAccess;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
+import com.photosharesite.backend.endpoints.deletefile.DeleteFileResource;
 import com.photosharesite.backend.endpoints.getfiles.GetFilesResource;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResource;
 import com.photosharesite.backend.endpoints.uploadfile.UploadFilesResource;
 import com.photosharesite.backend.exceptions.AccessDeniedException;
 import com.photosharesite.backend.exceptions.EntityNotFoundExceptionMapper;
+import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.forms.MultiPartBundle;
@@ -86,6 +90,15 @@ public class PhotoShareSiteApplication extends Application<PhotoShareSiteConfigu
                 configuration.getMediaFilesBucketName()
         );
         environment.jersey().register(uploadFilesResource);
+
+        // create and register DeleteFilesResource
+        final DeleteFileResource deleteFileResource = new DeleteFileResource(
+                new DeleteFileAccess(jdbi),
+                new GetFileDetailsAccess(jdbi),
+                new InsertOrSelectUserAccess(jdbi),
+                new FileDeleter(s3Client,configuration.getMediaFilesBucketName())
+        );
+        environment.jersey().register(deleteFileResource);
 
         //register exception mappers
         environment.jersey().register(new EntityNotFoundExceptionMapper());
