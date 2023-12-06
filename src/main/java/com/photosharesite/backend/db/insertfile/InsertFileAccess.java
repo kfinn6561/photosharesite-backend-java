@@ -1,11 +1,13 @@
 package com.photosharesite.backend.db.insertfile;
 
+import com.google.inject.Inject;
 import org.jdbi.v3.core.Jdbi;
 
 public class InsertFileAccess {
   public static final String INSERT_FILE_PROC_NAME = "InsertFile";
   private final Jdbi jdbi;
 
+  @Inject
   public InsertFileAccess(Jdbi jdbi) {
     this.jdbi = jdbi;
   }

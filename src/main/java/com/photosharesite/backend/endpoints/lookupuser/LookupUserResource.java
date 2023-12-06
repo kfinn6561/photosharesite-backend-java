@@ -3,6 +3,7 @@ package com.photosharesite.backend.endpoints.lookupuser;
 import com.codahale.metrics.annotation.Timed;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import io.swagger.v3.oas.annotations.Operation;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 public class LookupUserResource {
   private final InsertOrSelectUserAccess dao;
 
+  @Inject
   public LookupUserResource(InsertOrSelectUserAccess dao) {
     this.dao = dao;
   }

@@ -1,5 +1,6 @@
 package com.photosharesite.backend.filemanipulation;
 
+import com.google.inject.name.Named;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest;
@@ -25,7 +27,8 @@ public class FileUploader {
 
   private static final int PART_SIZE = 5 * 1024 * 1024;
 
-  public FileUploader(S3Client s3Client, String BUCKET_NAME) {
+  @Inject
+  public FileUploader(S3Client s3Client, @Named("BUCKET_NAME") String BUCKET_NAME) {
     this.s3Client = s3Client;
     this.BUCKET_NAME = BUCKET_NAME;
   }

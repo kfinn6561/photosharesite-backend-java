@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -23,6 +24,7 @@ public class UploadFilesResource {
   private final InsertFileAccess insertFileAccessDAO;
   private final FileUploader fileUploader;
 
+  @Inject
   public UploadFilesResource(
       S3Client client,
       UserExistsAccess userExistsDAO,

@@ -10,6 +10,7 @@ import com.photosharesite.backend.exceptions.EntityNotFoundException;
 import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.Optional;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -25,6 +26,7 @@ public class DeleteFileResource {
   private final InsertOrSelectUserAccess selectUserDAO;
   private final FileDeleter fileDeleter;
 
+  @Inject
   public DeleteFileResource(
       DeleteFileAccess deleteFileDAO,
       GetFileDetailsAccess getFileDetailsDAO,

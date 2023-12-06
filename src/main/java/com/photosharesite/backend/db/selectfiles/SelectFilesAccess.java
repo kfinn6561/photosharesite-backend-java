@@ -2,9 +2,8 @@ package com.photosharesite.backend.db.selectfiles;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.jdbi.v3.core.Jdbi;
-
 import javax.inject.Inject;
+import org.jdbi.v3.core.Jdbi;
 
 public class SelectFilesAccess {
   public static final String SELECT_FILES_PROC_NAME = "SelectFiles";
