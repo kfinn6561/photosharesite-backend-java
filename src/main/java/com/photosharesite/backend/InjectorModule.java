@@ -3,7 +3,6 @@ package com.photosharesite.backend;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Environment;
 import org.jdbi.v3.core.Jdbi;
@@ -17,12 +16,6 @@ public class InjectorModule extends AbstractModule {
   public Jdbi ProvideJDBI(PhotoShareSiteConfiguration configuration, Environment environment) {
     JdbiFactory factory = new JdbiFactory();
     return factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-  }
-
-  @Provides
-  @Named("BUCKET_NAME")
-  public String ProvideBucketName(PhotoShareSiteConfiguration configuration) {
-    return configuration.getMediaFilesBucketName();
   }
 
   @Provides

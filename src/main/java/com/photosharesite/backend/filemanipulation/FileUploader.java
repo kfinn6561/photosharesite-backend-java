@@ -1,7 +1,7 @@
 package com.photosharesite.backend.filemanipulation;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import com.photosharesite.backend.PhotoShareSiteConfiguration;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,9 +28,9 @@ public class FileUploader {
   private static final int PART_SIZE = 5 * 1024 * 1024;
 
   @Inject
-  public FileUploader(S3Client s3Client, @Named("BUCKET_NAME") String BUCKET_NAME) {
+  public FileUploader(S3Client s3Client, PhotoShareSiteConfiguration configuration) {
     this.s3Client = s3Client;
-    this.BUCKET_NAME = BUCKET_NAME;
+    this.BUCKET_NAME = configuration.getMediaFilesBucketName();
   }
 
   public String UploadFileMultipart(String keyName, InputStream inputStream) throws IOException {
