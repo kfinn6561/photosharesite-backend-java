@@ -1,7 +1,7 @@
 package com.photosharesite.backend.filemanipulation;
 
+import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import javax.inject.Inject;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 

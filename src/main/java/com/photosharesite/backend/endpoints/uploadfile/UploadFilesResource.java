@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.uploadfile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.photosharesite.backend.db.insertfile.InsertFileAccess;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.exceptions.EntityNotFoundException;
@@ -10,7 +11,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

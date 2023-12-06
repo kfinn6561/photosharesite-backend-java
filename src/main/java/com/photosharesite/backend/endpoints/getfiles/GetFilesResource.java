@@ -1,12 +1,12 @@
 package com.photosharesite.backend.endpoints.getfiles;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

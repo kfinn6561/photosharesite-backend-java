@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.deletefile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.photosharesite.backend.db.deletefile.DeleteFileAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
@@ -10,7 +11,6 @@ import com.photosharesite.backend.exceptions.EntityNotFoundException;
 import com.photosharesite.backend.filemanipulation.FileDeleter;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.Optional;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
