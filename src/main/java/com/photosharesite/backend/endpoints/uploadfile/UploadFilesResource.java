@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.uploadfile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.photosharesite.backend.db.insertfile.InsertFileAccess;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.exceptions.EntityNotFoundException;
@@ -10,11 +11,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-import software.amazon.awssdk.services.s3.S3Client;
 
 @Path("/files/upload")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,14 +27,14 @@ public class UploadFilesResource {
   private final InsertFileAccess insertFileAccessDAO;
   private final FileUploader fileUploader;
 
+  @Inject
   public UploadFilesResource(
-      S3Client client,
       UserExistsAccess userExistsDAO,
       InsertFileAccess insertFileAccessDAO,
-      String bucketName) {
+      FileUploader fileUploader) {
     this.userExistsDAO = userExistsDAO;
     this.insertFileAccessDAO = insertFileAccessDAO;
-    this.fileUploader = new FileUploader(client, bucketName);
+    this.fileUploader = fileUploader;
   }
 
   @POST

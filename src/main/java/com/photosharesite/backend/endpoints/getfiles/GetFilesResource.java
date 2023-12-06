@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.getfiles;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.photosharesite.backend.db.selectfiles.SelectFilesAccess;
 import com.photosharesite.backend.db.selectfiles.SelectFilesResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 public class GetFilesResource {
   private final SelectFilesAccess dao;
 
+  @Inject
   public GetFilesResource(SelectFilesAccess dao) {
     this.dao = dao;
   }

@@ -1,6 +1,7 @@
 package com.photosharesite.backend.endpoints.deletefile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.photosharesite.backend.db.deletefile.DeleteFileAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsAccess;
 import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
@@ -25,6 +26,7 @@ public class DeleteFileResource {
   private final InsertOrSelectUserAccess selectUserDAO;
   private final FileDeleter fileDeleter;
 
+  @Inject
   public DeleteFileResource(
       DeleteFileAccess deleteFileDAO,
       GetFileDetailsAccess getFileDetailsDAO,

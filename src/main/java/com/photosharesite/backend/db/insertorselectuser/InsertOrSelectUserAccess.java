@@ -1,5 +1,6 @@
 package com.photosharesite.backend.db.insertorselectuser;
 
+import com.google.inject.Inject;
 import com.photosharesite.backend.endpoints.lookupuser.LookupUserResponse;
 import org.jdbi.v3.core.Jdbi;
 
@@ -7,6 +8,7 @@ public class InsertOrSelectUserAccess {
   public static final String INSERT_OR_SELECT_USER_PROC_NAME = "InsertOrSelectUser";
   private final Jdbi jdbi;
 
+  @Inject
   public InsertOrSelectUserAccess(Jdbi jdbi) {
     this.jdbi = jdbi;
   }
