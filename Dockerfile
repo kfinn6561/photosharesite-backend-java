@@ -3,7 +3,7 @@
 FROM gradle:latest AS builder
 WORKDIR /usr/app/
 COPY . .
-RUN gradle clean build
+RUN gradle clean jar
 
 # Package stage
 
