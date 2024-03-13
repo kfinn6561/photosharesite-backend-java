@@ -5,6 +5,7 @@
 
 plugins {
     id "com.diffplug.spotless" version "6.11.0"
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 apply plugin: 'java'
@@ -56,6 +57,17 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 run {
     args 'server', 'config.yml'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.photosharesite.backend.PhotoShareSiteApplication"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        duplicatesStrategy DuplicatesStrategy.INHERIT
+    }
 }
 
 test {
