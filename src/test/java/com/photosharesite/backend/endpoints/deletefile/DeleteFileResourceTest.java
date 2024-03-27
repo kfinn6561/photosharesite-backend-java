@@ -10,7 +10,7 @@ import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.exceptions.AccessDeniedException;
 import com.photosharesite.backend.exceptions.EntityNotFoundException;
-import com.photosharesite.backend.filemanipulation.FileDeleter;
+import com.photosharesite.backend.aws.S3FileDeleter;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +29,8 @@ public class DeleteFileResourceTest {
   @Mock InsertOrSelectUserAccess selectUserDAO;
   @Mock GetFileDetailsAccess fileDetailsDAO;
   @Mock DeleteFileAccess deleteFileDAO;
-  @Mock FileDeleter fileDeleter;
+  @Mock
+  S3FileDeleter s3FileDeleter;
 
   private DeleteFileResource deleteFileResource;
 
@@ -37,7 +38,7 @@ public class DeleteFileResourceTest {
   public void setup() {
     when(selectUserDAO.InsertOrSelectUser(testIPAddress)).thenReturn(testUserID);
     this.deleteFileResource =
-        new DeleteFileResource(deleteFileDAO, fileDetailsDAO, selectUserDAO, fileDeleter);
+        new DeleteFileResource(deleteFileDAO, fileDetailsDAO, selectUserDAO, s3FileDeleter);
   }
 
   @Test
@@ -50,7 +51,7 @@ public class DeleteFileResourceTest {
 
     // Then: the file is deleted
     verify(deleteFileDAO).DeleteFile(testFileID);
-    verify(fileDeleter).DeleteFile(testFileName);
+    verify(s3FileDeleter).DeleteFile(testFileName);
   }
 
   @Test
@@ -65,7 +66,7 @@ public class DeleteFileResourceTest {
 
     // Then: an AccessDeniedException is thrown and the file is not deleted
     verify(deleteFileDAO, never()).DeleteFile(testFileID);
-    verify(fileDeleter, never()).DeleteFile(testFileName);
+    verify(s3FileDeleter, never()).DeleteFile(testFileName);
   }
 
   @Test
@@ -79,7 +80,7 @@ public class DeleteFileResourceTest {
 
     // Then: an EntityNotFoundException is thrown and the file is not deleted
     verify(deleteFileDAO, never()).DeleteFile(testFileID);
-    verify(fileDeleter, never()).DeleteFile(testFileName);
+    verify(s3FileDeleter, never()).DeleteFile(testFileName);
   }
 
   private GetFileDetailsResponse fileBelongingToUser() {

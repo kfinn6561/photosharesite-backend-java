@@ -1,4 +1,4 @@
-package com.photosharesite.backend.filemanipulation;
+package com.photosharesite.backend.aws;
 
 import com.google.inject.Inject;
 import com.photosharesite.backend.PhotoShareSiteConfiguration;
@@ -20,7 +20,7 @@ import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 
-public class FileUploader {
+public class S3FileUploader {
 
   private final S3Client s3Client;
   private final String BUCKET_NAME;
@@ -28,7 +28,7 @@ public class FileUploader {
   private static final int PART_SIZE = 5 * 1024 * 1024;
 
   @Inject
-  public FileUploader(S3Client s3Client, PhotoShareSiteConfiguration configuration) {
+  public S3FileUploader(S3Client s3Client, PhotoShareSiteConfiguration configuration) {
     this.s3Client = s3Client;
     this.BUCKET_NAME = configuration.getMediaFilesBucketName();
   }
