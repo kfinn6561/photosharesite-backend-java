@@ -25,7 +25,7 @@ mainClassName = "com.photosharesite.backend.PhotoShareSiteApplication"
 
 project.ext {
     dropwizardVersion = '2.1.5'
-    awsVersion = '2.20.90'
+    awsVersion = '2.25.17'
 }
 
 dependencies {
@@ -42,6 +42,7 @@ dependencies {
     implementation "software.amazon.awssdk:${awsVersion}"
     implementation "software.amazon.awssdk:auth:${awsVersion}"
     implementation "software.amazon.awssdk:secretsmanager:${awsVersion}"
+    implementation "software.amazon.awssdk:s3:${awsVersion}"
     implementation "org.yaml:snakeyaml:1.33"
     implementation "io.swagger.core.v3:swagger-core:2.2.15"
     implementation "io.swagger.core.v3:swagger-jaxrs2:2.2.15"
