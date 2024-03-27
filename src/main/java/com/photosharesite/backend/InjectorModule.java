@@ -9,6 +9,7 @@ import org.jdbi.v3.core.Jdbi;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 
 public class InjectorModule extends AbstractModule {
   @Provides
@@ -25,5 +26,13 @@ public class InjectorModule extends AbstractModule {
         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
         .forcePathStyle(true)
         .build();
+  }
+
+  @Provides
+  public SecretsManagerClient ProvideSecretsManagerClient() {
+    return SecretsManagerClient.builder()
+            .region(Region.EU_WEST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
   }
 }
