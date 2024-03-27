@@ -8,7 +8,7 @@ import com.photosharesite.backend.db.getfiledetails.GetFileDetailsResponse;
 import com.photosharesite.backend.db.insertorselectuser.InsertOrSelectUserAccess;
 import com.photosharesite.backend.exceptions.AccessDeniedException;
 import com.photosharesite.backend.exceptions.EntityNotFoundException;
-import com.photosharesite.backend.filemanipulation.FileDeleter;
+import com.photosharesite.backend.aws.S3FileDeleter;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -24,18 +24,18 @@ public class DeleteFileResource {
   private final DeleteFileAccess deleteFileDAO;
   private final GetFileDetailsAccess getFileDetailsDAO;
   private final InsertOrSelectUserAccess selectUserDAO;
-  private final FileDeleter fileDeleter;
+  private final S3FileDeleter s3FileDeleter;
 
   @Inject
   public DeleteFileResource(
       DeleteFileAccess deleteFileDAO,
       GetFileDetailsAccess getFileDetailsDAO,
       InsertOrSelectUserAccess selectUserDAO,
-      FileDeleter fileDeleter) {
+      S3FileDeleter s3FileDeleter) {
     this.deleteFileDAO = deleteFileDAO;
     this.getFileDetailsDAO = getFileDetailsDAO;
     this.selectUserDAO = selectUserDAO;
-    this.fileDeleter = fileDeleter;
+    this.s3FileDeleter = s3FileDeleter;
   }
 
   @POST
@@ -58,6 +58,6 @@ public class DeleteFileResource {
     }
 
     deleteFileDAO.DeleteFile(request.getFileID());
-    fileDeleter.DeleteFile(fileDetails.get().getFileName());
+    s3FileDeleter.DeleteFile(fileDetails.get().getFileName());
   }
 }

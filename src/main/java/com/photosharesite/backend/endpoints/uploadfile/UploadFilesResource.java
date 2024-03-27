@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.photosharesite.backend.db.insertfile.InsertFileAccess;
 import com.photosharesite.backend.db.userexists.UserExistsAccess;
 import com.photosharesite.backend.exceptions.EntityNotFoundException;
-import com.photosharesite.backend.filemanipulation.FileUploader;
+import com.photosharesite.backend.aws.S3FileUploader;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,16 +25,16 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 public class UploadFilesResource {
   private final UserExistsAccess userExistsDAO;
   private final InsertFileAccess insertFileAccessDAO;
-  private final FileUploader fileUploader;
+  private final S3FileUploader s3FileUploader;
 
   @Inject
   public UploadFilesResource(
       UserExistsAccess userExistsDAO,
       InsertFileAccess insertFileAccessDAO,
-      FileUploader fileUploader) {
+      S3FileUploader s3FileUploader) {
     this.userExistsDAO = userExistsDAO;
     this.insertFileAccessDAO = insertFileAccessDAO;
-    this.fileUploader = fileUploader;
+    this.s3FileUploader = s3FileUploader;
   }
 
   @POST
@@ -54,7 +54,7 @@ public class UploadFilesResource {
 
     String keyName = fileDetail.getFileName();
 
-    String url = fileUploader.UploadFileMultipart(keyName, inputStream);
+    String url = s3FileUploader.UploadFileMultipart(keyName, inputStream);
 
     insertFileAccessDAO.InsertFile(keyName, url, userID);
   }

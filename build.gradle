@@ -25,6 +25,7 @@ mainClassName = "com.photosharesite.backend.PhotoShareSiteApplication"
 
 project.ext {
     dropwizardVersion = '2.1.5'
+    awsVersion = '2.20.90'
 }
 
 dependencies {
@@ -38,8 +39,9 @@ dependencies {
     implementation "jakarta.validation:jakarta.validation-api:2.0.2"
     implementation "org.hibernate.validator:hibernate-validator:6.2.5.Final"
     implementation "com.mysql:mysql-connector-j:8.0.32"
-    implementation "software.amazon.awssdk:s3:2.20.90"
-    implementation "software.amazon.awssdk:auth:2.20.90"
+    implementation "software.amazon.awssdk:${awsVersion}"
+    implementation "software.amazon.awssdk:auth:${awsVersion}"
+    implementation "software.amazon.awssdk:secretsmanager:${awsVersion}"
     implementation "org.yaml:snakeyaml:1.33"
     implementation "io.swagger.core.v3:swagger-core:2.2.15"
     implementation "io.swagger.core.v3:swagger-jaxrs2:2.2.15"

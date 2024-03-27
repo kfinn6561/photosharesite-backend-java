@@ -1,16 +1,16 @@
-package com.photosharesite.backend.filemanipulation;
+package com.photosharesite.backend.aws;
 
 import com.google.inject.Inject;
 import com.photosharesite.backend.PhotoShareSiteConfiguration;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 
-public class FileDeleter {
+public class S3FileDeleter {
   private final S3Client s3Client;
   private final String BUCKET_NAME;
 
   @Inject
-  public FileDeleter(S3Client s3Client, PhotoShareSiteConfiguration configuration) {
+  public S3FileDeleter(S3Client s3Client, PhotoShareSiteConfiguration configuration) {
     this.s3Client = s3Client;
     this.BUCKET_NAME = configuration.getMediaFilesBucketName();
   }
